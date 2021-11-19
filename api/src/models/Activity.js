@@ -17,7 +17,7 @@ module.exports = (sequelize) => {
     difficulty: {
       type: DataTypes.STRING,
       allowNull: false,
-      values: [principiante, aficionado, normal, profesional, experto],
+      values: ["Principiante", "Aficionado", "Normal", "Profesional", "Experto"],
     },
     duration: {
       type: DataTypes.REAL(2, 2),
@@ -26,7 +26,7 @@ module.exports = (sequelize) => {
     season: {
       type: DataTypes.STRING,
       allowNull: false,
-      values: [otoño, invierno, primavera, verano],
+      values: ["Otoño", "Invierno", "Primavera", "Verano"],
     },
   });
 };
