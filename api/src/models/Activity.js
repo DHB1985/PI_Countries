@@ -4,12 +4,12 @@ const { DataTypes } = require("sequelize");
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define("activity", {
-    id: {
-      type: DataTypes.STRING,
-      primaryKey: true,
-      allowNull: false,
-      unique: true,
-    },
+    // id: {
+    //   type: DataTypes.STRING,
+    //   //primaryKey: true,
+    //   allowNull: false,
+    //   unique: true,
+    // },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
