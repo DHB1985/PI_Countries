@@ -2,44 +2,56 @@
 const express = require("express");
 const router = express.Router();
 
+const { Op } = require("sequelize");
+
 const fetch = require("node-fetch");
 
-const { Country, CountryActivity } = require("../db.js");
+const { Country, countryactivity, Activity } = require("../db.js");
 
 router.use(express.json());
 
-router.get("/", async function (req, res) {
-  fetch("https://restcountries.com/v3/all")
-    .then((response) => response.json())
-    .then((value) => {
-      let data = [];
+router.get("/", async (req, res) => {
+  let data = [];
+  let responsePromise;
+  let { name } = req.query;
 
-      //console.log(value[0]);
+  if (name === undefined) {
+    responsePromise = await fetch("https://restcountries.com/v3/all").then(
+      async (response) => {
+        return response.json();
+      },
+      (e) => {
+        console.log(e);
+      }
+    );
 
-      data = value.map((element) => {
-        let capit;
+    data = responsePromise.map((element) => {
+      let capit;
 
-        if (!element.capital) {
-          capit = "Capital no disponible";
-        } else if (element.capital.length === 1) {
-          capit = element.capital[0];
-        } else if (element.capital.length > 1) {
-          capit = element.capital.join(", ");
-        }
+      if (!element.capital) {
+        capit = "Capital no disponible";
+      } else if (element.capital.length === 1) {
+        capit = element.capital[0];
+      } else if (element.capital.length > 1) {
+        capit = element.capital.join(", ");
+      }
 
-        return {
-          id: element.cca3,
-          name: element.name.common,
-          imgflag: element.flags[1],
-          continent: element.region,
-          capital: capit,
-          subregion: element.subregion,
-          area: element.area,
-          population: element.population,
-        };
-      });
-      data.forEach((element) => {
-        Country.create({
+      return {
+        id: element.cca3,
+        name: element.translations.spa.common,
+        imgflag: element.flags[1],
+        continent: element.region,
+        capital: capit,
+        subregion: element.subregion,
+        area: element.area,
+        population: element.population,
+      };
+    });
+
+    for (let element of data) {
+      let [countrysearch, created] = await Country.findOrCreate({
+        where: { id: element.id },
+        defaults: {
           id: element.id,
           name: element.name,
           imgflag: element.imgflag,
@@ -48,38 +60,31 @@ router.get("/", async function (req, res) {
           subregion: element.subregion,
           area: element.area,
           population: element.population,
-        });
+        },
       });
-
-      // data.forEach((element) => {
-      //   const [instance, created] = await Country.findOrCreate({
-      //     where: { id: element.id },
-      //     defaults: {
-      //       name: element.name,
-      //       imgflag: element.imgflag,
-      //       continent: element.continent,
-      //       capital: element.capit,
-      //       subregion: element.subregion,
-      //       area: element.area,
-      //       population: element.population,
-      //     },
-      //   });
-      //});
-
-      res.json(data);
+    }
+    res.json(data);
+  } else if (name) {
+    const country = await Country.findAll({
+      where: { name: { [Op.startsWith]: name } },
     });
+
+    if (country.length !== 0) {
+      res.json(country);
+    } else {
+      res.json("País no encontrado");
+    }
+  }
 });
 
-router.get("/:id", async function (req, res, next) {
-  let {id} = req.params;
-  console.log('id ',id)
-  const pais = await Country.findByPk(id)
-  const activities = await CountryActivity.findAll({where: {countryId: id}})
-  console.log('activities ', activities)
-  if (pais !== null){
-    res.send(pais)
+router.get("/:id", async (req, res) => {
+  let { id } = req.params;
+
+  const pais = await Country.findByPk(id, { include: Activity });
+  if (pais !== null) {
+    res.json(pais);
   } else {
-    res.status(400).send("Page not Found")
+    res.status(400).send("Page not Found");
   }
 });
 
