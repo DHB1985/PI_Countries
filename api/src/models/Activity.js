@@ -15,7 +15,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     difficulty: {
-      type: DataTypes.STRING,
+      type: DataTypes.ENUM,
       allowNull: false,
       values: ["Principiante", "Aficionado", "Normal", "Profesional", "Experto"],
     },
@@ -24,7 +24,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     season: {
-      type: DataTypes.STRING,
+      type: DataTypes.ENUM,
       allowNull: false,
       values: ["Otoño", "Invierno", "Primavera", "Verano"],
     },

@@ -2,6 +2,7 @@
 const express = require("express");
 const router = express.Router();
 
+const sequelize = require("sequelize");
 const { Op } = require("sequelize");
 
 const fetch = require("node-fetch");
@@ -66,13 +67,20 @@ router.get("/", async (req, res) => {
     res.json(data);
   } else if (name) {
     const country = await Country.findAll({
-      where: { name: { [Op.startsWith]: name } },
+      where: {
+        name: sequelize.where(
+          sequelize.fn("LOWER", sequelize.col("name")),
+          "LIKE",
+          name.toLowerCase() + "%"
+        ),
+      },
     });
 
+    //const countryFound = await country.filter(value => value.name.toLowerCase().includes(name.toLowerCase))
     if (country.length !== 0) {
       res.json(country);
     } else {
-      res.json("País no encontrado");
+      res.status(404).send("País no encontrado");
     }
   }
 });
