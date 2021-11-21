@@ -2,7 +2,7 @@ import React from "react";
 
 
 
-export function Home (){
+const Home = () =>{
     return (
         <div>
             <h2>
@@ -11,3 +11,5 @@ export function Home (){
         </div>
     )
 }
+
+export default Home;
