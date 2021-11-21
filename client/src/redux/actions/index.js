@@ -8,7 +8,7 @@ export const getCountries = ()=>{
         let allCountries = await axios.get('http://localhost:3001/countries')
         return dispatch({
             type: GETALLCOUNTRIES,
-            payload: allCountries
+            payload: allCountries.data
         })
     }
 }
