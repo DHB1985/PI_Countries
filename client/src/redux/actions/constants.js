@@ -1,0 +1,1 @@
+export const GETALLCOUNTRIES = "GET_ALL_COUNTRIES";

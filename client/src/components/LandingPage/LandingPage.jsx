@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 const LandingPage = () => {
   return (
     <div>
-      <h1>Countries App</h1>
-      <Link exact path="/countries">
-        <button>Enter</button>
+      <h1>Bienvenidos</h1>
+      <Link to="/home">
+        <button>Ingresar</button>
       </Link>
     </div>
   );
