@@ -8,7 +8,7 @@ import {
   orderByCountryPopulation,
 } from "../../redux/actions";
 import { Link } from "react-router-dom";
-import CountryCard from "../Card/Card";
+import CountriesCards from "../Cards/Cards";
 import CountrySort from "../Sort/Sort";
 import ContinentFilter from "../ContinentFilter/ContinentFilter";
 
@@ -116,19 +116,9 @@ const Home = () => {
         paged={paged}
       />
 
-      {/* Mapeo de las cards del pais */}
+      {/* Área para el mapeo de las cartas */}
       <div>
-        {currentCountries &&
-          currentCountries.map((country) => {
-            return (
-              <CountryCard
-                imgflag={country.imgflag}
-                name={country.name}
-                continent={country.continent}
-                population={country.population}
-              />
-            );
-          })}
+        <CountriesCards currentCountries={currentCountries} />
       </div>
     </div>
   );
