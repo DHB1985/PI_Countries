@@ -5,6 +5,7 @@ import {
   getCountries,
   filterCountriesByContinent,
   orderByCountryName,
+  orderByCountryPopulation,
 } from "../../redux/actions";
 import { Link } from "react-router-dom";
 import CountryCard from "../Card/Card";
@@ -36,6 +37,15 @@ const Home = () => {
   const [orden, setOrden] = useState("");
   const handleOrderByName = (event) => {
     dispatch(orderByCountryName(event.target.value));
+    setCurrentPage(1);
+    setOrden(`Ordenado ${event.target.value}`);
+    event.preventDefault();
+  };
+
+  //Funcion para ejecutar el ordenamiento por poblacion
+  //const [orden, setOrden] = useState("");
+  const handleOrderByPopulation = (event) => {
+    dispatch(orderByCountryPopulation(event.target.value));
     setCurrentPage(1);
     setOrden(`Ordenado ${event.target.value}`);
     event.preventDefault();
@@ -79,7 +89,7 @@ const Home = () => {
 
       {/* Orden Ascendente/Descendente por nombre*/}
       <div>
-        <select onChange={event => handleOrderByName(event)}>
+        <select onChange={(event) => handleOrderByName(event)}>
           <option value="ascendName">Ascendente</option>
           <option value="descendName">Descendente</option>
         </select>
@@ -87,7 +97,7 @@ const Home = () => {
 
       {/* Orden Ascendente/Descendente por cantidad de poblacion*/}
       <div>
-        <select >
+        <select onChange={(event) => handleOrderByPopulation(event)}>
           <option value="ascendPob">Pob. Ascendente</option>
           <option value="descendPob">Pob. Descendente</option>
         </select>

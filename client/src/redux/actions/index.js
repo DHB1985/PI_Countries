@@ -1,6 +1,6 @@
 import axios from 'axios'; 
 
-import { GETALLCOUNTRIES, FILTERBYCONTINENT, ORDERBYCOUNTRYNAME } from './constants';
+import { GETALLCOUNTRIES, FILTERBYCONTINENT, ORDERBYCOUNTRYNAME, ORDERBYCOUNTRYPOPULATION } from './constants';
 
 
 export const getCountries = ()=>{
@@ -23,6 +23,12 @@ export const filterCountriesByContinent = (payload)=>{
 export const orderByCountryName = (payload)=>{
     return {
         type: ORDERBYCOUNTRYNAME,
+        payload: payload
+    }
+}
+export const orderByCountryPopulation = (payload)=>{
+    return {
+        type: ORDERBYCOUNTRYPOPULATION,
         payload: payload
     }
 }
