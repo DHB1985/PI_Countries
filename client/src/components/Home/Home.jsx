@@ -9,6 +9,8 @@ import {
 } from "../../redux/actions";
 import { Link } from "react-router-dom";
 import CountryCard from "../Card/Card";
+import CountrySort from "../Sort/Sort";
+import ContinentFilter from "../ContinentFilter/ContinentFilter";
 
 //Importacion del Paginado
 import Paged from "../Paged/Paged";
@@ -43,7 +45,6 @@ const Home = () => {
   };
 
   //Funcion para ejecutar el ordenamiento por poblacion
-  //const [orden, setOrden] = useState("");
   const handleOrderByPopulation = (event) => {
     dispatch(orderByCountryPopulation(event.target.value));
     setCurrentPage(1);
@@ -87,33 +88,14 @@ const Home = () => {
         Volver a Cargar
       </button>
 
-      {/* Orden Ascendente/Descendente por nombre*/}
-      <div>
-        <select onChange={(event) => handleOrderByName(event)}>
-          <option value="ascendName">Ascendente</option>
-          <option value="descendName">Descendente</option>
-        </select>
-      </div>
-
-      {/* Orden Ascendente/Descendente por cantidad de poblacion*/}
-      <div>
-        <select onChange={(event) => handleOrderByPopulation(event)}>
-          <option value="ascendPob">Pob. Ascendente</option>
-          <option value="descendPob">Pob. Descendente</option>
-        </select>
-      </div>
+      {/* Orden alfabetico o por poblacion ascendente o descendente */}
+      <CountrySort
+        handleOrderByName={handleOrderByName}
+        handleOrderByPopulation={handleOrderByPopulation}
+      />
 
       {/* Filtrado por Continente */}
-      <div>
-        <select onChange={(event) => handleFilterContinent(event)}>
-          <option value="All">Todos</option>
-          <option value="Africa">Africa</option>
-          <option value="Americas">America</option>
-          <option value="Asia">Asia</option>
-          <option value="Europe">Europa</option>
-          <option value="Oceania">Oceania</option>
-        </select>
-      </div>
+      <ContinentFilter handleFilterContinent={handleFilterContinent} />
 
       {/* Filtrado por Actividad */}
       <div>
@@ -127,13 +109,12 @@ const Home = () => {
       </div>
 
       {/* Mapeo del Paginado */}
-      <div>
-        <Paged
-          countriesPerPage={countriesPerPage}
-          allCountriesLength={allCountries.length}
-          paged={paged}
-        />
-      </div>
+
+      <Paged
+        countriesPerPage={countriesPerPage}
+        allCountriesLength={allCountries.length}
+        paged={paged}
+      />
 
       {/* Mapeo de las cards del pais */}
       <div>
