@@ -1,14 +1,12 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getCountries,
-
-} from "../../redux/actions";
+import { getCountries } from "../../redux/actions";
 import { Link } from "react-router-dom";
 import CountriesCards from "../Cards/Cards";
 import CountrySort from "../Sort/Sort";
 import ContinentFilter from "../ContinentFilter/ContinentFilter";
+import SearchBar from "../SearchBar/SearchBar";
 
 //Importacion del Paginado
 import Paged from "../Paged/Paged";
@@ -27,12 +25,10 @@ const Home = () => {
   }; //Funcion para resetear el State, para que vuelva a traer todos los países
 
   //Estado para el ordenamiento
-  //Esta puesto para que cambie el estado local y renderize 
+  //Esta puesto para que cambie el estado local y renderize
   //la pagina cada vez que ordeno por población o por nombre
   //Si no lo pongo cuando esta enn la pagina 1 no lo renderiza de nuevo
-   const [orden, setOrden] = useState("");
-
-
+  const [orden, setOrden] = useState("");
 
   // Estados locales para setear el paginado
   const [currentPage, setCurrentPage] = useState(1); //Setea la página actual en 1
@@ -70,8 +66,11 @@ const Home = () => {
         Volver a Cargar
       </button>
 
+      {/* SearchBar */}
+      <SearchBar />
+
       {/* Orden alfabetico o por poblacion ascendente o descendente */}
-      <CountrySort setCurrentPage = {setCurrentPage} setOrden = {setOrden}/>
+      <CountrySort setCurrentPage={setCurrentPage} setOrden={setOrden} />
 
       {/* Filtrado por Continente */}
       <ContinentFilter />
