@@ -1,6 +1,17 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { filterCountriesByContinent } from "../../redux/actions";
 
-const ContinentFilter = ({ handleFilterContinent }) => {
+const ContinentFilter = () => {
+  const dispatch = useDispatch();
+
+  //Funcion para ejecutar el filtrado por continente
+
+  const handleFilterContinent = (event) => {
+    dispatch(filterCountriesByContinent(event.target.value));
+    event.preventDefault();
+  };
+
   return (
     <div>
       {/* Filtrado por Continente */}
@@ -11,6 +22,7 @@ const ContinentFilter = ({ handleFilterContinent }) => {
         <option value="Asia">Asia</option>
         <option value="Europe">Europa</option>
         <option value="Oceania">Oceania</option>
+        <option value="Antartica">Oceania</option>
       </select>
     </div>
   );
