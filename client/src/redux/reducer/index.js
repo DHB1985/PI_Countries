@@ -2,7 +2,8 @@ import {
   GETALLCOUNTRIES,
   FILTERBYCONTINENT,
   ORDERBYCOUNTRYNAME,
-  ORDERBYCOUNTRYPOPULATION
+  ORDERBYCOUNTRYPOPULATION,
+  GETCOUNTRYBYNAME
 } from "../actions/constants";
 
 const initialState = {
@@ -83,6 +84,12 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         countries: sortedCountriespop,
       }
+
+      case GETCOUNTRYBYNAME:
+        return {
+          ...state,
+          countries: action.payload
+        }
 
     default:
       return state;

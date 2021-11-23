@@ -26,7 +26,6 @@ router.post("/", async (req, res) => {
     await value.addActivity(activity.dataValues.id);
   }
 
-  console.log(activity);
   res.send(activity);
 });
 
