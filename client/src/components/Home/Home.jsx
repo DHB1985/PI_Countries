@@ -3,9 +3,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getCountries,
-  filterCountriesByContinent,
-  orderByCountryName,
-  orderByCountryPopulation,
+
 } from "../../redux/actions";
 import { Link } from "react-router-dom";
 import CountriesCards from "../Cards/Cards";
@@ -28,29 +26,13 @@ const Home = () => {
     event.preventDefault();
   }; //Funcion para resetear el State, para que vuelva a traer todos los países
 
-  //Funcion para ejecutar el filtrado por continente
+  //Estado para el ordenamiento
+  //Esta puesto para que cambie el estado local y renderize 
+  //la pagina cada vez que ordeno por población o por nombre
+  //Si no lo pongo cuando esta enn la pagina 1 no lo renderiza de nuevo
+   const [orden, setOrden] = useState("");
 
-  const handleFilterContinent = (event) => {
-    dispatch(filterCountriesByContinent(event.target.value));
-    event.preventDefault();
-  };
 
-  //Funcion para ejecutar el ordenamiento por nombre
-  const [orden, setOrden] = useState("");
-  const handleOrderByName = (event) => {
-    dispatch(orderByCountryName(event.target.value));
-    setCurrentPage(1);
-    setOrden(`Ordenado ${event.target.value}`);
-    event.preventDefault();
-  };
-
-  //Funcion para ejecutar el ordenamiento por poblacion
-  const handleOrderByPopulation = (event) => {
-    dispatch(orderByCountryPopulation(event.target.value));
-    setCurrentPage(1);
-    setOrden(`Ordenado ${event.target.value}`);
-    event.preventDefault();
-  };
 
   // Estados locales para setear el paginado
   const [currentPage, setCurrentPage] = useState(1); //Setea la página actual en 1
@@ -89,13 +71,10 @@ const Home = () => {
       </button>
 
       {/* Orden alfabetico o por poblacion ascendente o descendente */}
-      <CountrySort
-        handleOrderByName={handleOrderByName}
-        handleOrderByPopulation={handleOrderByPopulation}
-      />
+      <CountrySort setCurrentPage = {setCurrentPage} setOrden = {setOrden}/>
 
       {/* Filtrado por Continente */}
-      <ContinentFilter handleFilterContinent={handleFilterContinent} />
+      <ContinentFilter />
 
       {/* Filtrado por Actividad */}
       <div>

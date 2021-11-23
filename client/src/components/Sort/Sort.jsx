@@ -1,6 +1,30 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import {
+  orderByCountryName,
+  orderByCountryPopulation,
+} from "../../redux/actions";
 
-const CountrySort = ({ handleOrderByName, handleOrderByPopulation}) => {
+const CountrySort = ({ setCurrentPage, setOrden }) => {
+  const dispatch = useDispatch();
+
+  //Funcion para ejecutar el ordenamiento por nombre
+
+  const handleOrderByName = (event) => {
+    dispatch(orderByCountryName(event.target.value));
+    setCurrentPage(1);
+    setOrden(`Ordenado ${event.target.value}`);
+    event.preventDefault();
+  };
+
+  //Funcion para ejecutar el ordenamiento por poblacion
+  const handleOrderByPopulation = (event) => {
+    dispatch(orderByCountryPopulation(event.target.value));
+    setCurrentPage(1);
+    setOrden(`Ordenado ${event.target.value}`);
+    event.preventDefault();
+  };
+
   return (
     <div>
       {/* Orden Ascendente/Descendente por nombre*/}
@@ -23,6 +47,3 @@ const CountrySort = ({ handleOrderByName, handleOrderByPopulation}) => {
 };
 
 export default CountrySort;
-
-
-
