@@ -5,6 +5,19 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { getCountries, postActivity } from "../../redux/actions";
 
+const validate = (input) =>{
+  let errors = {}
+  if (!input.name){
+    errors.name = "Se requiere un nombre"
+  } else if(!input.duration){
+    errors.duration = "Se requiere una duracion"
+  }
+
+  return errors
+}
+
+
+
 const CreateActivity = () => {
   const dispatch = useDispatch();
 
@@ -20,22 +33,25 @@ const CreateActivity = () => {
     countries: [],
   });
 
+  const [errors, setErrors] = useState({})
+
   useEffect(() => {
     dispatch(getCountries());
   }, []);
 
   const handleChange = (event) => {
     setInput({ ...input, [event.target.name]: event.target.value });
+    setErrors(validate({...input, [event.target.name]: event.target.value}))
   };
 
   const handleCheckDificulty = (event) => {
     if (event.target.checked) {
-      console.log("entre al if");
       setInput({
         ...input,
         difficulty: event.target.value,
       });
-    }
+    } 
+
   };
 
   const handleCheckSeason = (event) => {
@@ -44,14 +60,26 @@ const CreateActivity = () => {
         ...input,
         season: [...input.season, event.target.value],
       });
+    }else if(!event.target.checked){
+      setInput({
+        ...input, 
+        season: input.season.filter(diff => diff !== event.target.value)
+      })
     }
-  };
+   };
 
   const handleSelectCountries = (event) => {
     setInput({
       ...input,
       countries: [...input.countries, event.target.value],
     });
+  }
+
+  const hanldeDeleteCountrie = (element) =>{
+    setInput({
+      ...input, 
+      countries: input.countries.filter(countr => countr !== element)
+    })
   }
 
   const handleSubmit = (event) => {
@@ -82,7 +110,9 @@ const CreateActivity = () => {
             value={input.name}
             onChange={(e) => handleChange(e)}
             placeholder="Ingrese el nombre..."
+            required="required"
           />
+          {errors.name && (<p> {errors.name} </p>)}
         </div>
         <div>
           <label>Duración: </label>
@@ -93,7 +123,9 @@ const CreateActivity = () => {
             value={input.duration}
             onChange={(e) => handleChange(e)}
             placeholder="Ingrese el nombre..."
+            required="required"
           />
+          {errors.duration && (<p> {errors.duration} </p>)}
         </div>
         <div>
           <label>Dificultad: </label>
@@ -191,14 +223,19 @@ const CreateActivity = () => {
         <select onChange={(e) => handleSelectCountries(e)}>
           {countries.map((value) => (
             <option value={value.id}>
-              {value.imgflag}
-              {value.name}
+              <img src={value.imgflag} width="10" height="10" />
+                        {value.name}
             </option>
           ))}
         </select>
         <button type="submit">Crear Actividad</button>
         <ul>
-          <li>{input.countries.map((element) => element + " ,")}</li>
+          <li>{input.countries.map((element) => 
+          <div>
+          <p>{element}</p>
+          <button onClick={()=> hanldeDeleteCountrie(element)}>x</button>
+          </div>)}
+          </li>
         </ul>
       </form>
     </div>
