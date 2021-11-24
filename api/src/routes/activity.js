@@ -2,9 +2,9 @@
 const express = require("express");
 const router = express.Router();
 
-const fetch = require("node-fetch");
 
-const { Country, Activity } = require("../db.js");
+const { Country, Activity, Season } = require("../db.js");
+//const Seasons = require("../models/Seasons.js");
 
 router.use(express.json());
 
@@ -16,7 +16,6 @@ router.post("/", async (req, res) => {
     defaults: {
       difficulty: difficulty,
       duration: duration,
-      season: season,
     },
   });
 
@@ -25,8 +24,24 @@ router.post("/", async (req, res) => {
   for (let value of paises) {
     await value.addActivity(activity.dataValues.id);
   }
+  let seasons = await Season.findAll({where: {name: season}})
+
+  for (let value of seasons){
+    await value.addActivity(activity.dataValues.id);
+  }
 
   res.send(activity);
+});
+
+router.get("/:name", async (req, res) => {
+  let { name } = req.params;
+
+  const activity = await Activity.findOne({where: { name: name }, include: Season} );
+  if (activity !== null) {
+    res.json(activity);
+  } else {
+    res.status(400).send("Page not Found");
+  }
 });
 
 module.exports = router;

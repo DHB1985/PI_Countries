@@ -3,7 +3,8 @@ import {
   FILTERBYCONTINENT,
   ORDERBYCOUNTRYNAME,
   ORDERBYCOUNTRYPOPULATION,
-  GETCOUNTRYBYNAME
+  GETCOUNTRYBYNAME,
+  POSTACTIVITY
 } from "../actions/constants";
 
 const initialState = {
@@ -58,7 +59,7 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         countries: sortedCountries,
-      }
+      };
     case ORDERBYCOUNTRYPOPULATION:
       let sortedCountriespop;
       if (action.payload === "ascendPob") {
@@ -83,13 +84,18 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         countries: sortedCountriespop,
-      }
+      };
 
-      case GETCOUNTRYBYNAME:
-        return {
-          ...state,
-          countries: action.payload
-        }
+    case GETCOUNTRYBYNAME:
+      return {
+        ...state,
+        countries: action.payload,
+      };
+
+    case POSTACTIVITY:
+      return {
+        ...state,
+      };
 
     default:
       return state;

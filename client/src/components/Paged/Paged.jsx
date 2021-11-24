@@ -5,7 +5,6 @@ const Paged = ({ countriesPerPage, allCountriesLength, paged }) => {
 
   for (let i = 1; i <= Math.ceil(allCountriesLength / countriesPerPage); i++) {
     pageNumbers = [...pageNumbers, i];
-    
   }
 
   return (
@@ -13,11 +12,14 @@ const Paged = ({ countriesPerPage, allCountriesLength, paged }) => {
       <ul>
         {pageNumbers &&
           pageNumbers.map((num) => (
-            <li>
-              <a onClick={() => {paged(num)}}>
-                {num}
-              </a>
-            </li>
+            <a
+              onClick={() => {
+                paged(num);
+              }}
+            >
+              {" "}
+              {num}{" "}
+            </a>
           ))}
       </ul>
     </nav>

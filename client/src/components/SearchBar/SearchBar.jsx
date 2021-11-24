@@ -9,8 +9,8 @@ const SearchBar = () => {
 
   const handleInputChange = (event) => {
     event.preventDefault();
-    setCountry(event.target.value);
-    //dispatch(getCountryByName(event.target.value));
+    //setCountry(event.target.value);
+    dispatch(getCountryByName(event.target.value));
   };
 
   const handleSubmit = (event) => {
