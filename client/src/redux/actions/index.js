@@ -5,7 +5,8 @@ import {
   FILTERBYCONTINENT,
   ORDERBYCOUNTRYNAME,
   ORDERBYCOUNTRYPOPULATION,
-  GETCOUNTRYBYNAME
+  GETCOUNTRYBYNAME,
+  POSTACTIVITY
 } from "./constants";
 
 export const getCountries = () => {
@@ -48,3 +49,12 @@ export const getCountryByName = (payload) => {
         });
       }; 
 };
+
+export const postActivity = (payload) =>{
+  console.log('actions index l 54', payload)
+  return async (dispatch) => {
+    const response = await axios.post("http://localhost:3001/activity", payload)
+    console.log('response post activity ', response)
+    return response;
+  }
+}

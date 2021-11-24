@@ -15,18 +15,18 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     difficulty: {
-      type: DataTypes.ENUM,
-      allowNull: false,
-      values: ["Principiante", "Aficionado", "Normal", "Profesional", "Experto"],
+     type: DataTypes.ENUM,
+     allowNull: false,
+     values: ["Principiante", "Aficionado", "Normal", "Profesional", "Experto"],
     },
     duration: {
       type: DataTypes.REAL(2, 2),
       allowNull: false,
     },
-    season: {
-      type: DataTypes.ENUM,
-      allowNull: false,
-      values: ["Otoño", "Invierno", "Primavera", "Verano"],
-    },
+    // season: {
+    //   type: DataTypes.ENUM,
+    //   allowNull: false,
+    //   values: ["Otoño", "Invierno", "Primavera", "Verano"],
+    // },
   });
 };

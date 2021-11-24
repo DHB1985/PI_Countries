@@ -7,7 +7,7 @@ const { Op } = require("sequelize");
 
 const fetch = require("node-fetch");
 
-const { Country, countryactivity, Activity } = require("../db.js");
+const { Country, Season, Activity } = require("../db.js");
 
 router.use(express.json());
 
@@ -88,7 +88,9 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   let { id } = req.params;
 
-  const pais = await Country.findByPk(id, { include: Activity });
+  const pais = await Country.findByPk(id, {
+    include: [{ model: Activity, include: [{ model: Season }] }],
+  });
   if (pais !== null) {
     res.json(pais);
   } else {
