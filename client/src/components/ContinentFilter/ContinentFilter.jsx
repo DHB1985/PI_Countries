@@ -2,15 +2,17 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { filterCountriesByContinent } from "../../redux/actions";
 
-const ContinentFilter = () => {
+const ContinentFilter = ({setCurrentPage}) => {
   const dispatch = useDispatch();
 
   //Funcion para ejecutar el filtrado por continente
 
   const handleFilterContinent = (event) => {
     dispatch(filterCountriesByContinent(event.target.value));
+    setCurrentPage(1)
     event.preventDefault();
   };
+  
 
   return (
     <div>

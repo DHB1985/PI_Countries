@@ -13,6 +13,7 @@ const CountriesCards = ({currentCountries}) => {
               name={country.name}
               continent={country.continent}
               population={country.population}
+              id = {country.id}
             />
           );
         })}

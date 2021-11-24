@@ -73,7 +73,7 @@ const Home = () => {
       <CountrySort setCurrentPage={setCurrentPage} setOrden={setOrden} />
 
       {/* Filtrado por Continente */}
-      <ContinentFilter />
+      <ContinentFilter setCurrentPage={setCurrentPage}/>
 
       {/* Filtrado por Actividad */}
       <div>
