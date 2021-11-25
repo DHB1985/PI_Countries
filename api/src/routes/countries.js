@@ -15,8 +15,8 @@ router.get("/", async (req, res) => {
   let data = [];
   let responsePromise;
   let { name } = req.query;
-
-  if (name === undefined) {
+  console.log('name ',name)
+  if (name === '' || name === undefined) {
     let data = await Country.findAll();
     console.log("data", data);
     res.json(data);
@@ -34,7 +34,7 @@ router.get("/", async (req, res) => {
     if (country.length !== 0) {
       res.json(country);
     } else {
-      res.status(404).send("País no encontrado");
+      res.json("País no encontrado");
     }
   }
 });
@@ -48,7 +48,7 @@ router.get("/:id", async (req, res) => {
   if (pais !== null) {
     res.json(pais);
   } else {
-    res.status(400).send("Page not Found");
+    res.json('pais no encontrado');
   }
 });
 

@@ -45,7 +45,7 @@ const Home = () => {
   const indexOfFirstCountry =
     indexOfLastCountry - (countriesPerPage - indexFirstPage); // Para setear el índice del primer paíes ne la página
 
-  const currentCountries = allCountries.slice(
+  const currentCountries = !Array.isArray(allCountries)?allCountries: allCountries.slice(
     indexOfFirstCountry,
     indexOfLastCountry
   ); //deja solo la cantidad de países que necesito en cada página
@@ -90,7 +90,7 @@ const Home = () => {
 
       <Paged
         countriesPerPage={countriesPerPage}
-        allCountriesLength={allCountries.length}
+        allCountries={allCountries}
         paged={paged}
       />
 

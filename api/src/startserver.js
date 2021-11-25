@@ -48,6 +48,7 @@ const chargeDBCountries = async () => {
   }
 };
 
+
 module.exports = {
   startServer: async () => {
     await Season.create({

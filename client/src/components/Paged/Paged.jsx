@@ -1,11 +1,11 @@
 import React from "react";
 
-const Paged = ({ countriesPerPage, allCountriesLength, paged }) => {
+const Paged = ({ countriesPerPage, allCountries, paged }) => {
   let pageNumbers = [];
-
-  for (let i = 1; i <= Math.ceil(allCountriesLength / countriesPerPage); i++) {
+ if (Array.isArray(allCountries)){
+  for (let i = 1; i <= Math.ceil(allCountries.length / countriesPerPage); i++) {
     pageNumbers = [...pageNumbers, i];
-  }
+  }} else {pageNumbers = [1]}
 
   return (
     <nav>
