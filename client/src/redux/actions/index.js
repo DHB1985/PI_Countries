@@ -6,7 +6,8 @@ import {
   ORDERBYCOUNTRYNAME,
   ORDERBYCOUNTRYPOPULATION,
   GETCOUNTRYBYNAME,
-  POSTACTIVITY
+  POSTACTIVITY,
+  GETCOUNTRYDETAIL,
 } from "./constants";
 
 export const getCountries = () => {
@@ -40,21 +41,33 @@ export const orderByCountryPopulation = (payload) => {
 };
 
 export const getCountryByName = (payload) => {
-    return async (dispatch) => {
-        let response = await axios.get(`http://localhost:3001/countries?name=${payload}`);
-        console.log('response', response)
-        return dispatch({
-            type: GETCOUNTRYBYNAME,
-            payload: response.data,
-        });
-      }; 
+  return async (dispatch) => {
+    let response = await axios.get(
+      `http://localhost:3001/countries?name=${payload}`
+    );
+    return dispatch({
+      type: GETCOUNTRYBYNAME,
+      payload: response.data,
+    });
+  };
 };
 
-export const postActivity = (payload) =>{
-  console.log('actions index l 54', payload)
+export const postActivity = (payload) => {
   return async (dispatch) => {
-    const response = await axios.post("http://localhost:3001/activity", payload)
-    console.log('response post activity ', response)
+    const response = await axios.post(
+      "http://localhost:3001/activity",
+      payload
+    );
     return response;
-  }
-}
+  };
+};
+
+export const getCountryDetail = (payload) => {
+   return async (dispatch) => {
+    const response = await axios.get(`http://localhost:3001/countries/${payload}`);
+    return dispatch({
+      type: GETCOUNTRYDETAIL,
+      payload: response.data,
+    });
+  };
+};

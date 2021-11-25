@@ -17,53 +17,8 @@ router.get("/", async (req, res) => {
   let { name } = req.query;
 
   if (name === undefined) {
-    responsePromise = await fetch("https://restcountries.com/v3/all").then(
-      async (response) => {
-        return response.json();
-      },
-      (e) => {
-        console.log(e);
-      }
-    );
-
-    data = responsePromise.map((element) => {
-      let capit;
-
-      if (!element.capital) {
-        capit = "Capital no disponible";
-      } else if (element.capital.length === 1) {
-        capit = element.capital[0];
-      } else if (element.capital.length > 1) {
-        capit = element.capital.join(", ");
-      }
-
-      return {
-        id: element.cca3,
-        name: element.translations.spa.common,
-        imgflag: element.flags[1],
-        continent: element.region,
-        capital: capit,
-        subregion: element.subregion,
-        area: element.area,
-        population: element.population,
-      };
-    });
-
-    for (let element of data) {
-      let [countrysearch, created] = await Country.findOrCreate({
-        where: { id: element.id },
-        defaults: {
-          id: element.id,
-          name: element.name,
-          imgflag: element.imgflag,
-          continent: element.continent,
-          capital: element.capital,
-          subregion: element.subregion,
-          area: element.area,
-          population: element.population,
-        },
-      });
-    }
+    let data = await Country.findAll();
+    console.log("data", data);
     res.json(data);
   } else if (name) {
     const country = await Country.findAll({
@@ -76,7 +31,6 @@ router.get("/", async (req, res) => {
       },
     });
 
-    //const countryFound = await country.filter(value => value.name.toLowerCase().includes(name.toLowerCase))
     if (country.length !== 0) {
       res.json(country);
     } else {

@@ -4,12 +4,14 @@ import {
   ORDERBYCOUNTRYNAME,
   ORDERBYCOUNTRYPOPULATION,
   GETCOUNTRYBYNAME,
-  POSTACTIVITY
+  POSTACTIVITY,
+  GETCOUNTRYDETAIL,
 } from "../actions/constants";
 
 const initialState = {
   countries: [],
   allCountries: [],
+  countryDetail: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -95,6 +97,12 @@ const rootReducer = (state = initialState, action) => {
     case POSTACTIVITY:
       return {
         ...state,
+      };
+
+    case GETCOUNTRYDETAIL:
+      return {
+        ...state,
+        countryDetail: action.payload,
       };
 
     default:
