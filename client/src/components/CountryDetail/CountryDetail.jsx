@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getCountryDetail } from "../../redux/actions/index";
+import CountryActivities from "./CountryActivities/CountryActivities";
 
 const CountryDetail = (props) => {
   const dispatch = useDispatch();
@@ -23,25 +24,7 @@ const CountryDetail = (props) => {
         <div>Población: {country.population}</div>
         <div>Área: {country.area}</div>
         <div>
-          {country.activities &&
-            country.activities.map((activiti) => {
-              console.log("country L28", activiti);
-              return (
-                <div>
-                  <div>Actividad: {activiti.name}</div>
-                  <div>Dificultad: {activiti.difficulty}</div>
-                  <div>Duración: {activiti.duration} hs.</div>
-                  {activiti.seasons &&
-                    activiti.seasons.map((season) => {
-                      return (
-                        <div>
-                          <div>{season.name}</div>
-                        </div>
-                      );
-                    })}
-                </div>
-              );
-            })}
+          <CountryActivities activities={country.activities} />
         </div>
         <Link to="/home">HOME</Link>
       </div>

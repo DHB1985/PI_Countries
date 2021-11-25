@@ -45,7 +45,6 @@ export const getCountryByName = (payload) => {
     let response = await axios.get(
       `http://localhost:3001/countries?name=${payload}`
     );
-    console.log("response", response);
     return dispatch({
       type: GETCOUNTRYBYNAME,
       payload: response.data,
@@ -59,7 +58,6 @@ export const postActivity = (payload) => {
       "http://localhost:3001/activity",
       payload
     );
-    console.log("response post activity ", response);
     return response;
   };
 };

@@ -24,7 +24,7 @@ const ContinentFilter = ({setCurrentPage}) => {
         <option value="Asia">Asia</option>
         <option value="Europe">Europa</option>
         <option value="Oceania">Oceania</option>
-        <option value="Antartica">Oceania</option>
+        <option value="Antarctic">Antartida</option>
       </select>
     </div>
   );
