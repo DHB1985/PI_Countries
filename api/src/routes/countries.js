@@ -13,12 +13,10 @@ router.get("/", async (req, res) => {
   let data = [];
   let responsePromise;
   let { name } = req.query;
-  console.log('name ',name)
   if (name === '' || name === undefined) {
     let data = await Country.findAll({
       include: [{ model: Activity }],
     });
-    console.log("data", data);
     res.json(data);
   } else if (name) {
     const country = await Country.findAll({
@@ -42,7 +40,7 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   let { id } = req.params;
 
-  const pais = await Country.findByPk(id, {
+  const pais = await Country.findByPk(id.toUpperCase(), {
     include: [{ model: Activity, include: [{ model: Season }] }],
   });
   if (pais !== null) {

@@ -28,7 +28,6 @@ const SearchCountryActivity = ({ handleSelectCountries }) => {
         <div>
           {filteredCountries.map((element) => (
             <ul>
-              {console.log(element)}
               <button
                 onClick={(e) => handleSelectCountries(e)}
                 value={element.id}
