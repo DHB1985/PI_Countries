@@ -8,6 +8,8 @@ import {
   GETCOUNTRYBYNAME,
   POSTACTIVITY,
   GETCOUNTRYDETAIL,
+  GETACTIVITIES,
+  FILTERBYACTIVITY,
 } from "./constants";
 
 export const getCountries = () => {
@@ -42,7 +44,7 @@ export const orderByCountryPopulation = (payload) => {
 
 export const getCountryByName = (payload) => {
   return async (dispatch) => {
-    let response = await axios.get(
+    const response = await axios.get(
       `http://localhost:3001/countries?name=${payload}`
     );
     return dispatch({
@@ -63,11 +65,30 @@ export const postActivity = (payload) => {
 };
 
 export const getCountryDetail = (payload) => {
-   return async (dispatch) => {
-    const response = await axios.get(`http://localhost:3001/countries/${payload}`);
+  return async (dispatch) => {
+    const response = await axios.get(
+      `http://localhost:3001/countries/${payload}`
+    );
     return dispatch({
       type: GETCOUNTRYDETAIL,
       payload: response.data,
     });
+  };
+};
+
+export const getActivitiesList = () => {
+  return async (dispatch) => {
+    const response = await axios.get("http://localhost:3001/activity");
+    return dispatch({
+      type: GETACTIVITIES,
+      payload: response.data,
+    });
+  };
+};
+
+export const filterCountriesByActivity = (payload) => {
+   return {
+    type: FILTERBYACTIVITY,
+    payload: payload,
   };
 };

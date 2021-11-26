@@ -3,8 +3,9 @@ import { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { postActivity } from "../../redux/actions";
+import { postActivity, getActivitiesList } from "../../redux/actions";
 import SearchCountryActivity from "./SearchCountryActivity/SearchCountryActivity";
+
 
 const validate = (input) => {
   let errors = {};
@@ -95,6 +96,7 @@ const CreateActivity = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(postActivity(input));
+    dispatch(getActivitiesList())
     alert("Actividad Creada");
     setInput({
       name: "",
@@ -127,7 +129,7 @@ const CreateActivity = () => {
  
     setInput({
       ...input,
-      countries: [...input.countries, event.target.value],
+      countries: !input.countries.includes(event.target.value) ?[...input.countries,event.target.value]:input.countries
     });
     setErrors(validate({ ...input, [event.target.name]: event.target.value }));
   };
@@ -273,14 +275,8 @@ const CreateActivity = () => {
           {errors.season && <p> {errors.season} </p>}
         </div>
         <label>Paises:</label>
-        {/* <select onChange={(e) => handleSelectCountries(e)} name="countries">
-          {countries.map((value) => (
-            <option value={value.id}>
-              <img src={value.imgflag} width="10" height="10" />
-              {value.name}
-            </option>
-          ))}
-        </select> */}<div>
+        
+        <div>
         <button type="submit" disabled={habilButton} key="submitFormButton">
           Crear Actividad
         </button>

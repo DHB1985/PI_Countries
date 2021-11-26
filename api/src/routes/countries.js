@@ -5,8 +5,6 @@ const router = express.Router();
 const sequelize = require("sequelize");
 const { Op } = require("sequelize");
 
-const fetch = require("node-fetch");
-
 const { Country, Season, Activity } = require("../db.js");
 
 router.use(express.json());
@@ -17,7 +15,9 @@ router.get("/", async (req, res) => {
   let { name } = req.query;
   console.log('name ',name)
   if (name === '' || name === undefined) {
-    let data = await Country.findAll();
+    let data = await Country.findAll({
+      include: [{ model: Activity }],
+    });
     console.log("data", data);
     res.json(data);
   } else if (name) {
@@ -48,7 +48,7 @@ router.get("/:id", async (req, res) => {
   if (pais !== null) {
     res.json(pais);
   } else {
-    res.json('pais no encontrado');
+    res.json('Pais no encontrado');
   }
 });
 

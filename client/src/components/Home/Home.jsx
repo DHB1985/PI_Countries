@@ -1,12 +1,16 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCountries } from "../../redux/actions";
+import { getCountries, getActivitiesList } from "../../redux/actions";
 import { Link } from "react-router-dom";
+
+//Importación de componentes
+
 import CountriesCards from "../Cards/Cards";
 import CountrySort from "../Sort/Sort";
 import ContinentFilter from "../ContinentFilter/ContinentFilter";
 import SearchBar from "../SearchBar/SearchBar";
+import ActivityFilter from "../ActivityFilter/ActivityFilter";
 
 //Importacion del Paginado
 import Paged from "../Paged/Paged";
@@ -15,8 +19,10 @@ const Home = () => {
   const dispatch = useDispatch();
   const allCountries = useSelector((state) => state.countries);
 
+
   useEffect(() => {
     dispatch(getCountries());
+    dispatch(getActivitiesList());
   }, []);
 
   const handleClick = (event) => {
@@ -45,10 +51,9 @@ const Home = () => {
   const indexOfFirstCountry =
     indexOfLastCountry - (countriesPerPage - indexFirstPage); // Para setear el índice del primer paíes ne la página
 
-  const currentCountries = !Array.isArray(allCountries)?allCountries: allCountries.slice(
-    indexOfFirstCountry,
-    indexOfLastCountry
-  ); //deja solo la cantidad de países que necesito en cada página
+  const currentCountries = !Array.isArray(allCountries)
+    ? allCountries
+    : allCountries.slice(indexOfFirstCountry, indexOfLastCountry); //deja solo la cantidad de países que necesito en cada página
   const paged = (pageNumber) => {
     setCurrentPage(pageNumber);
   }; //Setea el número de la página a mostrar
@@ -73,18 +78,25 @@ const Home = () => {
       <CountrySort setCurrentPage={setCurrentPage} setOrden={setOrden} />
 
       {/* Filtrado por Continente */}
-      <ContinentFilter setCurrentPage={setCurrentPage}/>
+      <ContinentFilter setCurrentPage={setCurrentPage} />
 
       {/* Filtrado por Actividad */}
-      <div>
-        <select>
+     
+      <ActivityFilter setCurrentPage={setCurrentPage}/>
+      {/* <div>
+        {allActivities &&
+          allActivities.map((elem) => {
+           
+           return <p>Actividades: {elem}</p>;
+          })}
+      </div> */}
+      {/* <select>
           <option value="All">Todas</option>
           <option value="actividad1">actividad1</option>
           <option value="actividad2">actividad2</option>
           <option value="actividad3">actividad3</option>
           <option value="actividad4">actividad4</option>
-        </select>
-      </div>
+        </select> */}
 
       {/* Mapeo del Paginado */}
 

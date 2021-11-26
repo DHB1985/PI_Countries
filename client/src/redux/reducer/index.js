@@ -6,12 +6,15 @@ import {
   GETCOUNTRYBYNAME,
   POSTACTIVITY,
   GETCOUNTRYDETAIL,
+  GETACTIVITIES,
+  FILTERBYACTIVITY,
 } from "../actions/constants";
 
 const initialState = {
   countries: [],
   allCountries: [],
   countryDetail: [],
+  activitiesNamesId: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -103,6 +106,38 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         countryDetail: action.payload,
+      };
+
+    case GETACTIVITIES:
+      let activitys;
+      activitys = action.payload.map((elem) => {
+        return { name: elem.name, id: elem.id };
+      });
+      return {
+        ...state,
+        activitiesNamesId: activitys,
+      };
+
+    case FILTERBYACTIVITY:
+      let stateFilteredAct = [];
+      if (action.payload === "All") {
+        stateFilteredAct = state.allCountries;
+      } else {
+        let id = parseInt(action.payload);
+        for (let element of state.allCountries) {
+          if (element.activities.length !== 0) {
+            for (let elem of element.activities) {
+              if (elem.id === id) {
+                stateFilteredAct = [...stateFilteredAct, element];
+              }
+            }
+          }
+        }
+      }
+
+      return {
+        ...state,
+        countries: stateFilteredAct,
       };
 
     default:
