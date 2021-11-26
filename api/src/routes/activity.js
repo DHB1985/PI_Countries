@@ -2,7 +2,6 @@
 const express = require("express");
 const router = express.Router();
 
-
 const { Country, Activity, Season } = require("../db.js");
 //const Seasons = require("../models/Seasons.js");
 
@@ -24,9 +23,9 @@ router.post("/", async (req, res) => {
   for (let value of paises) {
     await value.addActivity(activity.dataValues.id);
   }
-  let seasons = await Season.findAll({where: {name: season}})
+  let seasons = await Season.findAll({ where: { name: season } });
 
-  for (let value of seasons){
+  for (let value of seasons) {
     await value.addActivity(activity.dataValues.id);
   }
 
@@ -36,11 +35,23 @@ router.post("/", async (req, res) => {
 router.get("/:name", async (req, res) => {
   let { name } = req.params;
 
-  const activity = await Activity.findOne({where: { name: name }, include: Season} );
+  const activity = await Activity.findOne({
+    where: { name: name },
+    include: Season,
+  });
   if (activity !== null) {
     res.json(activity);
   } else {
     res.status(400).send("Page not Found");
+  }
+});
+
+router.get("/", async (req, res) => {
+  const activity = await Activity.findAll({ attributes: ["name", "id"] });
+  if (activity.length !== 0) {
+    res.json(activity);
+  } else {
+    res.json([{name: "No hay actividades guardadas"}]);
   }
 });
 
