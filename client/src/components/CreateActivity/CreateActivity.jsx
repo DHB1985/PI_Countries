@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { postActivity, getActivitiesList } from "../../redux/actions";
 import SearchCountryActivity from "./SearchCountryActivity/SearchCountryActivity";
@@ -38,8 +38,6 @@ const buttonValidate = (errors) => {
 
 const CreateActivity = () => {
   const dispatch = useDispatch();
-
-  const countries = useSelector((state) => state.allCountries);
 
   const history = useHistory();
 

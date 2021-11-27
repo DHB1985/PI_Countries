@@ -35,7 +35,7 @@ const ActivityFilter = ({ setCurrentPage }) => {
         {allActivities &&
           allActivities.map((elem) => {
             return (
-              <label>
+              <label key={"activityFilter"+elem.id}>
                 <input
                   type="radio"
                   id={elem.id}

@@ -1,9 +1,12 @@
 import React from "react";
 import CountryCard from "../Card/Card";
 
+//Importacion de estilos
+import styles from "./Cards.module.css"
+
 const CountriesCards = ({ currentCountries }) => {
   return (
-    <div>
+    <div className={styles.cardsBox}>
       {/* Mapeo de las cards del pais */}
 
       {!Array.isArray(currentCountries)
@@ -16,6 +19,7 @@ const CountriesCards = ({ currentCountries }) => {
                 continent={country.continent}
                 population={country.population}
                 id={country.id}
+                key = {"Card"+country.id}
               />
             );
           })}

@@ -1,0 +1,15 @@
+/**Stilo de caja de cada carta**/
+.cardsBox {
+    display: flex;
+    flex-direction: row;
+    /* align-items: center; */
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 100%;
+    padding: 0.25%;
+    border-width: thin ;
+    margin: 0.25%;
+    /* align-content: stretch;
+    align-items: stretch; */
+  }

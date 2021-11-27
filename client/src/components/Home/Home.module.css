@@ -1,0 +1,23 @@
+.homeBox{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.homeTitleBox{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+/* .filtredCouOrder{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+} */
+
+.homeContentBox{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
