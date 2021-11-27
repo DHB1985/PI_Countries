@@ -16,7 +16,7 @@ const Paged = ({ countriesPerPage, allCountries, paged }) => {
       <ul>
         {pageNumbers &&
           pageNumbers.map((num) => (
-            <a
+            <a key={"paged"+num}
               onClick={() => {
                 paged(num);
               }}

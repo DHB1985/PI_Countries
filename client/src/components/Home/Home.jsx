@@ -4,6 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCountries, getActivitiesList } from "../../redux/actions";
 import { Link } from "react-router-dom";
 
+//Importacion de estilos
+import styles from "./Home.module.css";
+
 //Importación de componentes
 
 import CountriesCards from "../Cards/Cards";
@@ -14,6 +17,8 @@ import ActivityFilter from "../ActivityFilter/ActivityFilter";
 
 //Importacion del Paginado
 import Paged from "../Paged/Paged";
+
+
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -65,61 +70,79 @@ Sacando la serie a partir de la pagina 2 al indexOfFirstCountry hay que sumarle 
 Sacando la serie a partir de la pagina 2 al difindexOfLastCountry hay que sumarle el numero de la pagina actual - 1 
 (indLastCountry = currentPage - 1;)
   */
-   if (currentPage === 1) {
-    indFirstCountry =0;
+  if (currentPage === 1) {
+    indFirstCountry = 0;
     indLastCountry = 0;
-   } else {
-    indFirstCountry =currentPage - 2;
+  } else {
+    indFirstCountry = currentPage - 2;
     indLastCountry = currentPage - 1;
-   }
-  const indexOfLastCountry = currentPage * (countriesPerPage ); //Para setear el el índice del último país en la pagina actual
-  const indexOfFirstCountry =
-    indexOfLastCountry - (countriesPerPage ); // Para setear el índice del primer paíes ne la página
+  }
+  const indexOfLastCountry = currentPage * countriesPerPage; //Para setear el el índice del último país en la pagina actual
+  const indexOfFirstCountry = indexOfLastCountry - countriesPerPage; // Para setear el índice del primer paíes ne la página
 
   const currentCountries = !Array.isArray(allCountries)
     ? allCountries
-    : allCountries.slice(indexOfFirstCountry+indFirstCountry, indexOfLastCountry+indLastCountry); //deja solo la cantidad de países que necesito en cada página
+    : allCountries.slice(
+        indexOfFirstCountry + indFirstCountry,
+        indexOfLastCountry + indLastCountry
+      ); //deja solo la cantidad de países que necesito en cada página
   const paged = (pageNumber) => {
     setCurrentPage(pageNumber);
   }; //Setea el número de la página a mostrar
   //Final de las funciones de paginado
 
   return (
-    <div>
-      <h2>Welcome to Countrie App</h2>
-      <Link to="/activity">Crear actividad Turística</Link>
-      <button
-        onClick={(event) => {
-          handleClick(event);
-        }}
-      >
-        Volver a Cargar
-      </button>
+    <div className={styles.homeBox}>
+      <div className={styles.homeTitleBox}>
 
-      {/* SearchBar */}
-      <SearchBar />
+        <button
+          onClick={(event) => {
+            handleClick(event);
+          }}
+        >
+          Volver a Cargar
+        </button>
 
-      {/* Orden alfabetico o por poblacion ascendente o descendente */}
-      <CountrySort setCurrentPage={setCurrentPage} setOrden={setOrden} />
+        <h2>Welcome to Countrie App</h2>
 
-      {/* Filtrado por Continente */}
-      <ContinentFilter setCurrentPage={setCurrentPage} />
+        {/* SearchBar */}
 
-      {/* Filtrado por Actividad */}
+        <SearchBar />
 
-      <ActivityFilter setCurrentPage={setCurrentPage} />
+        <Link to="/activity">Crear actividad Turística</Link>
+      </div>
 
-      {/* Mapeo del Paginado */}
+      <div className={styles.homeContentBox}>
+        <div>
+          {/* Filtrado por Continente */}
 
-      <Paged
-        countriesPerPage={countriesPerPage}
-        allCountries={allCountries}
-        paged={paged}
-      />
+          <ContinentFilter setCurrentPage={setCurrentPage} />
 
-      {/* Área para el mapeo de las cartas */}
-      <div>
-        <CountriesCards currentCountries={currentCountries} />
+          {/* Orden alfabetico o por poblacion ascendente o descendente */}
+
+          <CountrySort setCurrentPage={setCurrentPage} setOrden={setOrden} />
+        </div>
+
+        <div>
+          {/* Área para el mapeo de las cartas */}
+
+          <CountriesCards currentCountries={currentCountries} />
+
+          {/* Mapeo del Paginado */}
+
+          <Paged
+            countriesPerPage={countriesPerPage}
+            allCountries={allCountries}
+            paged={paged}
+            key={"page" + currentPage}
+          />
+        </div>
+
+        <div>
+          {/* Filtrado por Actividad */}
+
+          <ActivityFilter setCurrentPage={setCurrentPage} />
+        </div>
       </div>
     </div>
   );
