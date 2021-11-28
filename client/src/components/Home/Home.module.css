@@ -10,14 +10,14 @@
     justify-content: space-evenly;
 }
 
-/* .filtredCouOrder{
+.homeContentBox{
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-} */
-
-.homeContentBox{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
 }
+
+.filtredCouOrder{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+} 

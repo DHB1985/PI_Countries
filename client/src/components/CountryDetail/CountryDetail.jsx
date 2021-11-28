@@ -11,6 +11,7 @@ const CountryDetail = (props) => {
   useEffect(() => {
     dispatch(getCountryDetail(props.match.params.id));
   }, [dispatch]);
+  console.log('props ', props)
 
   const country = useSelector((state) => state.countryDetail);
   if (country.id) {

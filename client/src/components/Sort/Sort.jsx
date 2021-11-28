@@ -2,15 +2,26 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import {
   orderByCountryName,
-  orderByCountryPopulation,
+ // orderByCountryPopulation,
 } from "../../redux/actions";
+import { useState } from "react";
 
 const CountrySort = ({ setCurrentPage, setOrden }) => {
   const dispatch = useDispatch();
 
+  const [orderContinent, setOrderContinent] = useState([
+    false,
+    false,
+    false,
+    false,
+  ]);
   //Funcion para ejecutar el ordenamiento por nombre
 
-  const handleOrderByName = (event) => {
+  const handleOrder = (event) => {
+    const updateCheckedState = orderContinent.map((element, index)=> index === parseInt(event.target.id)?!element:false)
+    setOrderContinent(
+      updateCheckedState
+    );
     dispatch(orderByCountryName(event.target.value));
     setCurrentPage(1);
     setOrden(`Ordenado ${event.target.value}`);
@@ -18,29 +29,67 @@ const CountrySort = ({ setCurrentPage, setOrden }) => {
   };
 
   //Funcion para ejecutar el ordenamiento por poblacion
-  const handleOrderByPopulation = (event) => {
-    dispatch(orderByCountryPopulation(event.target.value));
-    setCurrentPage(1);
-    setOrden(`Ordenado ${event.target.value}`);
-    event.preventDefault();
-  };
+  // const handleOrderByPopulation = (event) => {
+  //   dispatch(orderByCountryPopulation(event.target.value));
+  //   setCurrentPage(1);
+  //   setOrden(`Ordenado ${event.target.value}`);
+  //   event.preventDefault();
+  // };
 
   return (
     <div>
       {/* Orden Ascendente/Descendente por nombre*/}
       <div>
-        <select onChange={(event) => handleOrderByName(event)}>
-          <option value="ascendName">Ascendente</option>
-          <option value="descendName">Descendente</option>
-        </select>
-      </div>
+      
+        <label>
+          <input
+            type="radio"
+            id="0"
+            name="ascendName"
+            value="ascendName"
+            checked={orderContinent[0]}
+            onChange={(event) => handleOrder(event)}
+          />
+          Ascendente
+        </label>
 
-      {/* Orden Ascendente/Descendente por cantidad de poblacion*/}
-      <div>
-        <select onChange={(event) => handleOrderByPopulation(event)}>
-          <option value="ascendPob">Pob. Ascendente</option>
-          <option value="descendPob">Pob. Descendente</option>
-        </select>
+        <label>
+          <input
+            type="radio"
+            id="1"
+            name="descendName"
+            value="descendName"
+            checked={orderContinent[1]}
+            onChange={(event) => handleOrder(event)}
+          />
+          Descendente
+        </label>
+
+        {/* Orden Ascendente/Descendente por cantidad de poblacion*/}
+
+        <label>
+          <input
+            type="radio"
+            id="2"
+            name="ascendPob"
+            value="ascendPob"
+            checked={orderContinent[2]}
+            onChange={(event) => handleOrder(event)}
+          />
+          Pob. Ascendente
+        </label>
+        <label>
+          <input
+            type="radio"
+            id="3"
+            name="descendPob"
+            value="descendPob"
+            checked={orderContinent[3]}
+            onChange={(event) => handleOrder(event)}
+          />
+          Pob. Descendente
+        </label>
+    
       </div>
     </div>
   );

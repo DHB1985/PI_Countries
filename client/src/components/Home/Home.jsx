@@ -27,7 +27,7 @@ const Home = () => {
   useEffect(() => {
     dispatch(getCountries());
     dispatch(getActivitiesList());
-  }, []);
+  }, [dispatch]);
 
   const handleClick = (event) => {
     dispatch(getCountries());
@@ -42,7 +42,7 @@ const Home = () => {
 
   // Estados locales para setear el paginado
   const [currentPage, setCurrentPage] = useState(1); //Setea la página actual en 1
-  const [countriesPerPage, setcountriesPerPage] = useState(9); // Setea la cantidad de paises por pagina
+  const countriesPerPage= 9; // Setea la cantidad de paises por pagina
   let indFirstCountry = 0; //Para restar al primer indice de los paises despues de la pag 1
   let indLastCountry = 0; //Para restar al ultimo indice de los paises despues de la pag 1
   //Este if es para mostrar 9 en la primer página, si no es la primera va a valer 0, entonces va a mostrar 10
