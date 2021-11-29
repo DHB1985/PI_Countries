@@ -24,52 +24,45 @@ const ContinentFilter = ({ setCurrentPage }) => {
     false,
     false,
   ]);
-  //console.log(filterContinent)
-  // const [localState, setLocalState] = useState(false)
-  //let updateCheckedState =[];
-  
+
   //Funcion para ejecutar el filtrado por continente
-  
+
   const handleFilterContinent = (event) => {
-    let updateCheckedState = [ ...filterContinent.map((element, index) =>
-      index === parseInt(event.target.id) ? !element : element
-      )];
-      setFilterContinent(updateCheckedState);
-      // setLocalState(!localState)
-      event.preventDefault();
-      let statusFilter = {
-        checked: event.target.checked,
-        value: event.target.value,
-      };
-      dispatch(filterCountriesByContinent(statusFilter));
-      setCurrentPage(1);
-      console.log(filterContinent)
-    };
-    
-    // useEffect(() => {
-    //   console.log(localState)
-    //   console.log(filterContinent)
-    //   setFilterContinent(updateCheckedState)
-    // }, [localState]);
-    
-    return (
+    let updateCheckedState = [
+      ...filterContinent.map((element, index) =>
+        index === parseInt(event.target.id) ? !element : element
+      ),
+    ];
+    setFilterContinent(updateCheckedState);
+
+    let statusFilter = continentsList.filter((element, index) => {
+      if (updateCheckedState[index] === true) return element;
+    });
+
+    dispatch(filterCountriesByContinent(statusFilter));
+    setCurrentPage(1);
+  };
+
+  return (
     <div className={styles.filterContinent}>
       {/* Filtrado por Continente */}
       <h4>Filtrado por continente</h4>
       {continentsList.map((element, index) => {
         return (
-          <form key={'div'+index}>
+          <div key={"div" + index}>
             <input
-            key={index}
+              key={index}
               type="checkbox"
               id={index}
               name={element}
               value={element}
               checked={filterContinent[index]}
-              onClick={(event) => handleFilterContinent(event)}
+              onClick={handleFilterContinent}
             />
-            <label for={element} key={'label'+index}>{element}</label>
-          </form>
+            <label for={element} key={"label" + index}>
+              {element}
+            </label>
+          </div>
         );
       })}
     </div>

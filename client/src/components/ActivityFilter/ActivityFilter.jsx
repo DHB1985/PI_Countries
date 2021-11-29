@@ -17,7 +17,6 @@ const ActivityFilter = ({ setCurrentPage }) => {
       dispatch(filterCountriesByActivity(event.target.value));
       setCurrentPage(1);
     }
-    event.preventDefault();
   };
 
   return (

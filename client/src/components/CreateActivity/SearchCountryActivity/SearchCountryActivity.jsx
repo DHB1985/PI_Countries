@@ -3,6 +3,8 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 
+import styles from './SearchCountryActivity.module.css'
+
 const SearchCountryActivity = ({ handleSelectCountries }) => {
   const countries = useSelector((state) => state.allCountries);
 
@@ -25,23 +27,25 @@ const SearchCountryActivity = ({ handleSelectCountries }) => {
   function searchList() {
     if (searchShow) {
       return (
-        <div>
+        <div className={styles.countriesListBtn}>
           {filteredCountries.map((element) => (
-            <ul>
+           
               <button
                 onClick={(e) => handleSelectCountries(e)}
-                value={element.id}
+                value={element.name}
+                name={element.imgflag}
+                id={element.id}
                 key={element.id}
               >
                 <img
                   src={element.imgflag}
                   alt="Img not found"
-                  width="10px"
-                  height="10px"
+                  width="15px"
+                  height="15px"
                 />{" "}
                 {element.name}
               </button>
-            </ul>
+ 
           ))}
         </div>
       );
@@ -49,18 +53,19 @@ const SearchCountryActivity = ({ handleSelectCountries }) => {
   }
 
   return (
-    <section>
+    <section className={styles.searchBar}>
       <div>
-        <h2>Search your course</h2>
+        <h4>Busqueda de países</h4>
       </div>
       <div>
         <input
           type="search"
-          placeholder="Search People"
+          id='SearchInput'
+          placeholder="Buscar países.."
           onChange={handleChange}
         />
-      </div>
       {searchList()}
+      </div>
     </section>
   );
 };

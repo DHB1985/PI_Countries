@@ -28,19 +28,10 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case FILTERBYCONTINENT:
+      console.log('action payload ',action.payload)
       let stateFiltered = [];
-      if (action.payload.checked) {
-        state.continentsFilter = [
-          ...state.continentsFilter,
-          action.payload.value,
-        ];
-      } else {
-        state.continentsFilter = state.continentsFilter.filter(
-          (value) => value !== action.payload.value
-        );
-      }
-      if (state.continentsFilter.length !== 0) {
-        for (let element of state.continentsFilter) {
+      if (action.payload.length !== 0) {
+        for (let element of action.payload) {
           stateFiltered = [
             ...stateFiltered,
             ...state.allCountries.filter(
@@ -144,10 +135,11 @@ const rootReducer = (state = initialState, action) => {
 
     case GETACTIVITIES:
       let activitys;
-      if (action.payload[0].name !== "No hay actividades guardadas")
-      {activitys = action.payload.map((elem) => {
-        return { name: elem.name, id: elem.id };
-      });}
+      if (action.payload[0].name !== "No hay actividades guardadas") {
+        activitys = action.payload.map((elem) => {
+          return { name: elem.name, id: elem.id };
+        });
+      }
       return {
         ...state,
         activitiesNamesId: activitys,

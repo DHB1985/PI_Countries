@@ -34,7 +34,6 @@ const CountrySort = ({ setCurrentPage, setOrden }) => {
     dispatch(orderByCountryName(event.target.value));
     setCurrentPage(1);
     setOrden(`Ordenado ${event.target.value}`);
-    event.preventDefault();
   };
 
   //Funcion para ejecutar el ordenamiento por poblacion

@@ -15,8 +15,10 @@ const CountryCard = ({ imgflag, name, continent, population, id }) => {
           <label>{name}</label>
         </Link>
         <div className={styles.cardInfo}>
-          <label>Cont: {continent}</label> 
-          <label>Población: {population}</label> 
+          <label>Continente: {continent}</label> 
+          {/* <label> </label>  */}
+          <label>Población:</label> 
+          <label>{population} hab.</label> 
         </div>
       </div>
     </div>
