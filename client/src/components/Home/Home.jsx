@@ -18,8 +18,6 @@ import ActivityFilter from "../ActivityFilter/ActivityFilter";
 //Importacion del Paginado
 import Paged from "../Paged/Paged";
 
-
-
 const Home = () => {
   const dispatch = useDispatch();
   const allCountries = useSelector((state) => state.countries);
@@ -42,7 +40,7 @@ const Home = () => {
 
   // Estados locales para setear el paginado
   const [currentPage, setCurrentPage] = useState(1); //Setea la página actual en 1
-  const countriesPerPage= 9; // Setea la cantidad de paises por pagina
+  const countriesPerPage = 9; // Setea la cantidad de paises por pagina
   let indFirstCountry = 0; //Para restar al primer indice de los paises despues de la pag 1
   let indLastCountry = 0; //Para restar al ultimo indice de los paises despues de la pag 1
   //Este if es para mostrar 9 en la primer página, si no es la primera va a valer 0, entonces va a mostrar 10
@@ -94,26 +92,29 @@ Sacando la serie a partir de la pagina 2 al difindexOfLastCountry hay que sumarl
   return (
     <div className={styles.homeBox}>
       <div className={styles.homeTitleBox}>
+        <div className={styles.buttonReset}>
+          <button
+            onClick={(event) => {
+              handleClick(event);
+            }}
+          >
+            Volver a Cargar
+          </button>
+        </div>
 
-        <button
-          onClick={(event) => {
-            handleClick(event);
-          }}
-        >
-          Volver a Cargar
-        </button>
-
-        <h2>Welcome to Countrie App</h2>
-
+        <div className={styles.titleH2}>
+          <h2>Welcome to Countrie App</h2>
+        </div>
         {/* SearchBar */}
+        <div className={styles.searchCreateAct}>
+          <SearchBar />
 
-        <SearchBar />
-
-        <Link to="/activity">Crear actividad Turística</Link>
+          <Link to="/activity">Crear actividad Turística</Link>
+        </div>
       </div>
 
       <div className={styles.homeContentBox}>
-        <div>
+        <div className={styles.leftMenu}>
           {/* Filtrado por Continente */}
 
           <ContinentFilter setCurrentPage={setCurrentPage} />
@@ -123,7 +124,7 @@ Sacando la serie a partir de la pagina 2 al difindexOfLastCountry hay que sumarl
           <CountrySort setCurrentPage={setCurrentPage} setOrden={setOrden} />
         </div>
 
-        <div>
+        <div className={styles.dataCards}>
           {/* Área para el mapeo de las cartas */}
 
           <CountriesCards currentCountries={currentCountries} />
@@ -138,7 +139,7 @@ Sacando la serie a partir de la pagina 2 al difindexOfLastCountry hay que sumarl
           />
         </div>
 
-        <div>
+        <div className={styles.filterActivity}>
           {/* Filtrado por Actividad */}
 
           <ActivityFilter setCurrentPage={setCurrentPage} />

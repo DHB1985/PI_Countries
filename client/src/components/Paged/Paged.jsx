@@ -1,4 +1,5 @@
 import React from "react";
+import styles from './Paged.module.css'
 
 const Paged = ({ countriesPerPage, allCountries, paged }) => {
   let pageNumbers = [];
@@ -15,7 +16,7 @@ const Paged = ({ countriesPerPage, allCountries, paged }) => {
   
 
   return (
-    <nav>
+    <nav className={styles.pageNav}>
       <ul>
         {pageNumbers &&
           pageNumbers.map((num) => (

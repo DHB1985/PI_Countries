@@ -1,23 +1,70 @@
-.homeBox{
+@media screen {
+  .homeBox {
     display: flex;
     flex-direction: column;
     align-items: center;
-}
+    height: 100vh;
+  }
 
-.homeTitleBox{
+  .homeTitleBox {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 98%;
+    max-height: 10vh;
+  }
+
+  .buttonReset {
+    display: flex;
+    flex-shrink: 0;
+    width: 30%;
+    align-content: flex-end;
+  }
+
+  .titleH2 {
+    flex-shrink: 0;
+    width: 40%;
+    align-content: center;
+  }
+
+  .searchCreateAct {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-shrink: 0;
+    width: 30%;
+  }
+
+  .homeContentBox {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-}
+    width: 100%;
+    height: 90vh;
+    flex-shrink: 0;
+  }
 
-.homeContentBox{
+  .leftMenu {
     display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-}
+    flex-direction: column;
+    flex-shrink: 0;
+    width: 14%;
+    height: 90vh;
+  }
 
-.filtredCouOrder{
+  .dataCards {
     display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-} 
+    flex-direction: column;
+    flex-shrink: 0;
+    width: 70%; /*Es un 2% menos para que quede un namrgen en los filtros*/
+    height: 90vh;
+  }
+
+  .filterActivity {
+    flex-shrink: 0;
+    width: 14%;
+    height: 90vh;
+  }
+}

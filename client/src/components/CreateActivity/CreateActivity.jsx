@@ -6,7 +6,6 @@ import { useDispatch } from "react-redux";
 import { postActivity, getActivitiesList } from "../../redux/actions";
 import SearchCountryActivity from "./SearchCountryActivity/SearchCountryActivity";
 
-
 const validate = (input) => {
   let errors = {};
   if (!input.name) {
@@ -51,7 +50,13 @@ const CreateActivity = () => {
 
   let [habilButton, setHabilButton] = useState(true);
 
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState({
+    name: "Se requiere un nombre",
+    difficulty: "Se requiere una dificultad",
+    duration: "Se requiere una duracion",
+    season: "Se requiere una temporada",
+    countries: "Se requiere al menos un país",
+  });
 
   const handleChange = (event) => {
     setInput({ ...input, [event.target.name]: event.target.value });
@@ -94,7 +99,7 @@ const CreateActivity = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(postActivity(input));
-    dispatch(getActivitiesList())
+    dispatch(getActivitiesList());
     alert("Actividad Creada");
     setInput({
       name: "",
@@ -106,14 +111,14 @@ const CreateActivity = () => {
     history.push("/home");
   };
 
-  //Uso este useEffect para que me dashabilite el boton de Crear Actividad porque si no lo pongo
-  //e ingreso una letra en el nombre me lo habilita y si sigo escribiendo o pongo otra opción me lo
-  //deshabilita
+  // //Uso este useEffect para que me dashabilite el boton de Crear Actividad porque si no lo pongo
+  // //e ingreso una letra en el nombre me lo habilita y si sigo escribiendo o pongo otra opción me lo
+  // //deshabilita
 
   useEffect(() => {
     setErrors(validate(input));
     setHabilButton(errors);
-  }, []);
+  }, [input]);
 
   //Uso este useEffect para que cada vez que cambie el estado error me habilite o deshabilite el boton
   //de crear actividad
@@ -124,10 +129,11 @@ const CreateActivity = () => {
 
   //Funciones para hacer la barra de busqueda de paises
   const handleSelectCountries = (event) => {
- 
     setInput({
       ...input,
-      countries: !input.countries.includes(event.target.value) ?[...input.countries,event.target.value]:input.countries
+      countries: !input.countries.includes(event.target.value)
+        ? [...input.countries, event.target.value]
+        : input.countries,
     });
     setErrors(validate({ ...input, [event.target.name]: event.target.value }));
   };
@@ -273,28 +279,32 @@ const CreateActivity = () => {
           {errors.season && <p> {errors.season} </p>}
         </div>
         <label>Paises:</label>
-        
+
         <div>
-        <button type="submit" disabled={habilButton} key="submitFormButton">
-          Crear Actividad
-        </button>
+          <button type="submit" disabled={habilButton} key="submitFormButton">
+            Crear Actividad
+          </button>
         </div>
       </form>
-        <div>
+      <div>
         <ul>
           <li>
             {input.countries.map((element) => (
               <div>
                 <p>{element}</p>
-                <button onClick={() => hanldeDeleteCountrie(element)} key={element.id+element.name}>x</button>
+                <button
+                  onClick={() => hanldeDeleteCountrie(element)}
+                  key={element.id + element.name}
+                >
+                  x
+                </button>
               </div>
             ))}
           </li>
         </ul>
-        </div>
-      <SearchCountryActivity handleSelectCountries = {handleSelectCountries}/>
-            {errors.countries && <p> {errors.countries} </p>}
-
+      </div>
+      <SearchCountryActivity handleSelectCountries={handleSelectCountries} />
+      {errors.countries && <p> {errors.countries} </p>}
     </div>
   );
 };

@@ -2,6 +2,9 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { filterCountriesByActivity } from "../../redux/actions";
 
+//Importacion de estilos
+import styles from "./ActivityFilter.module.css";
+
 const ActivityFilter = ({ setCurrentPage }) => {
   const dispatch = useDispatch();
 
@@ -18,10 +21,11 @@ const ActivityFilter = ({ setCurrentPage }) => {
   };
 
   return (
-    <div>
+    <div className={styles.activityFilterList}>
       {/* Filtrado por Actividad */}
+
+      <h4>Filtrado por Actividades</h4>
       <div>
-        <p>Actividades:</p>
         <label>
           <input
             type="radio"
@@ -32,10 +36,12 @@ const ActivityFilter = ({ setCurrentPage }) => {
           />
           All Countries
         </label>
-        {allActivities &&
-          allActivities.map((elem) => {
-            return (
-              <label key={"activityFilter"+elem.id}>
+      </div>
+      {allActivities &&
+        allActivities.map((elem) => {
+          return (
+            <div>
+              <label key={"activityFilter" + elem.id}>
                 <input
                   type="radio"
                   id={elem.id}
@@ -45,9 +51,9 @@ const ActivityFilter = ({ setCurrentPage }) => {
                 />
                 {elem.name}
               </label>
-            );
-          })}
-      </div>
+            </div>
+          );
+        })}
     </div>
   );
 };

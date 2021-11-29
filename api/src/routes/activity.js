@@ -52,6 +52,7 @@ router.get("/", async (req, res) => {
     res.json(activity);
   } else {
     res.json([{name: "No hay actividades guardadas"}]);
+    //res.sendStatus(200);
   }
 });
 
