@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
-
+import { useNavigate } from "react-router";
 import { postActivity, getActivitiesList } from "../../redux/actions";
 import SearchCountryActivity from "./SearchCountryActivity/SearchCountryActivity";
 
@@ -41,7 +41,7 @@ const buttonValidate = (errors) => {
 const CreateActivity = () => {
   const dispatch = useDispatch();
 
-  const history = useHistory();
+  const history = useNavigate();
 
   let [input, setInput] = useState({
     name: "",
@@ -114,7 +114,7 @@ const CreateActivity = () => {
       countries: [],
       countriesNames: [],
     });
-    history.push("/home");
+    history("/home");
   };
 
   // //Uso este useEffect para que me dashabilite el boton de Crear Actividad porque si no lo pongo

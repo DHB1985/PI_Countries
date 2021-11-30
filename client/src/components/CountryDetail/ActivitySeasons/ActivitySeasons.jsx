@@ -1,14 +1,17 @@
 import React from "react";
 
+import styles from './ActivitySeasons.module.css'
+
 const ActivitySeasons = ({ seasons }) => {
   return (
-    <div>
+    <div className={styles.seasonsList}>
+      <span>Temporadas:</span>
       {seasons &&
         seasons.map((season) => {
           return (
-            <div>
-              <div>{season.name}</div>
-            </div>
+     
+              <span>{season.name}</span>
+         
           );
         })}
     </div>

@@ -20,14 +20,14 @@ const Paged = ({ countriesPerPage, allCountries, paged }) => {
       <ul>
         {pageNumbers &&
           pageNumbers.map((num) => (
-            <a key={"paged"+num}
+            <button key={"paged"+num}
               onClick={() => {
                 paged(num);
               }}
             >
               {" "}
               {num}{" "}
-            </a>
+            </button>
           ))}
       </ul>
     </nav>

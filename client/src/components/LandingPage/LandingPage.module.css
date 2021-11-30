@@ -1,0 +1,21 @@
+@media screen {
+  .landingPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    /* background-image: url("https://yt3.ggpht.com/ytc/AKedOLR-PeE-sjM2G3806Es3t_weZVsB5Cj6Iz_iryVd=s900-c-k-c0x00ffffff-no-rj"); */
+    /* background-image: url("https://cdn.pixabay.com/photo/2020/04/20/21/29/world-map-5070024_960_720.jpg");  */
+    /* background-size: 100% 100vh; */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* background-image: url("../../img/WhatsApp\ Image\ 2021-11-29\ at\ 21.47.45.jpeg"); */
+    background-image: url("../../img/WhatsApp\ Image\ 2021-11-29\ at\ 21.44.13\ \(1\).jpeg");
+    /* background: linear-gradient(0deg, #00000088 30%,#ffffff44 100%, transparent);   */
+  }
+
+  .landingPage h1{
+    color: white
+  }
+}

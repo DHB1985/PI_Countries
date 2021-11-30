@@ -3,18 +3,22 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
-    border: 1px solid black;
+   border: 1px solid black;
     flex-shrink: 0;
     width: 30%;
     height: 24%;
+    border-radius: 10px;
+    background: linear-gradient(to top, rgba(255, 255, 255,0.3) 0%,rgba(0, 140, 255,0.3) 100%);
+    
 }
 
 .imgFlagBox{
     display: flex;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     flex-shrink: 0;
     width: 40%;
     height: 55%;
+padding-left: 7px;
 }
 
 .imgFlag{

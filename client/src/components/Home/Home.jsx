@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCountries, getActivitiesList } from "../../redux/actions";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 //Importacion de estilos
 import styles from "./Home.module.css";
@@ -21,6 +21,7 @@ import Paged from "../Paged/Paged";
 const Home = () => {
   const dispatch = useDispatch();
   const allCountries = useSelector((state) => state.countries);
+  const navigate = useNavigate()
 
   useEffect(() => {
     dispatch(getCountries());
@@ -29,8 +30,8 @@ const Home = () => {
 
   const handleClick = (event) => {
     dispatch(getCountries());
-    event.preventDefault();
-  }; //Funcion para resetear el State, para que vuelva a traer todos los países
+    window.location.reload()
+   }; //Funcion para resetear el State, para que vuelva a traer todos los países
 
   //Estado para el ordenamiento
   //Esta puesto para que cambie el estado local y renderize
@@ -90,7 +91,8 @@ Sacando la serie a partir de la pagina 2 al difindexOfLastCountry hay que sumarl
   //Final de las funciones de paginado
 
   return (
-    <div className={styles.homeBox}>
+      
+    <div className={styles.homeBox} >
       <div className={styles.homeTitleBox}>
         <div className={styles.buttonReset}>
           <button
