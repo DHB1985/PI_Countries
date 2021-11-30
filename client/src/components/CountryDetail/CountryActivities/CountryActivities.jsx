@@ -1,17 +1,19 @@
 import React from "react";
 import ActivitySeasons from "../ActivitySeasons/ActivitySeasons";
 
+import styles from './CountryActivities.module.css'
+
 const CountryActivities = ({activities}) => {
     console.log('activities',activities)
   return (
-    <div>
+    <div className={styles.countryActivitiesList}>
       {activities &&
         activities.map((activiti) => {
           return (
-            <div>
-              <div>Actividad: {activiti.name}</div>
-              <div>Dificultad: {activiti.difficulty}</div>
-              <div>Duración: {activiti.duration} hs.</div>
+            <div className={styles.countryActivitiesDetail}>
+              <span>Actividad: {activiti.name}</span>
+              <span>Dificultad: {activiti.difficulty}</span>
+              <span>Duración: {activiti.duration} hs.</span>
               <ActivitySeasons seasons = {activiti.seasons}/>
             </div>
           );

@@ -3,43 +3,53 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
-    border: 1px solid black;
-    width: 45%;
-    height: 150px;
-}
-
-.imgFlag{
-    display: flex;
-    /* width: 100%;
-    height: 100%; */
+   border: 1px solid black;
+    flex-shrink: 0;
+    width: 30%;
+    height: 24%;
+    border-radius: 10px;
+    background: linear-gradient(to top, rgba(255, 255, 255,0.3) 0%,rgba(0, 140, 255,0.3) 100%);
+    
 }
 
 .imgFlagBox{
     display: flex;
-    width: 45%;
+    /* border: 1px solid black; */
+    flex-shrink: 0;
+    width: 40%;
     height: 55%;
+padding-left: 7px;
 }
 
+.imgFlag{
+    display: flex;
+    flex-shrink: 0;
+    width: 100%;
+    height: 100%;
+}
 
 .dataContent{
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-around;
-     width: 45%;
-     height: 145px; 
-     margin: 1px 1px;
-     padding: 1px 1px; 
+    justify-content: space-between;
+    flex-shrink: 0;
+     width: 57%;
+     height: 100%; 
 }
 
-/* .dataContent label {
-    display: flex;
-    height: 1px; 
-    margin: 1px;
-    padding: 1px; 
-} */
+.dataContent label{
+    font-size: 15px;
+}
 
 .cardInfo{
     display: flex;
     flex-direction: column;
+    flex-shrink: 0;
+    width: 100%;
+    height: 65%;
+}
+
+.cardInfo label{
+    font-size: 15px;
 }

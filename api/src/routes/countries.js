@@ -46,7 +46,7 @@ router.get("/:id", async (req, res) => {
   if (pais !== null) {
     res.json(pais);
   } else {
-    res.json('Pais no encontrado');
+    res.json('País no encontrado');
   }
 });
 

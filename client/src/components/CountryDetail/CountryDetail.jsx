@@ -1,41 +1,48 @@
 import React from "react";
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getCountryDetail } from "../../redux/actions/index";
 import CountryActivities from "./CountryActivities/CountryActivities";
 
-const CountryDetail = (props) => {
+import styles from "./CountryDetail.module.css";
+import PageNotFound from "../PageNotFound/PageNotFound";
+
+const CountryDetail = () => {
   const dispatch = useDispatch();
+  const { id } = useParams();
 
   useEffect(() => {
-    dispatch(getCountryDetail(props.match.params.id));
+    dispatch(getCountryDetail(id));
   }, [dispatch]);
 
   const country = useSelector((state) => state.countryDetail);
-  if (country.id) {
+  console.log("country detail", country);
+  if (country !== "País no encontrado") {
     return (
-      <div>
-        <h1>{country.name}</h1>
-        <img src={country.imgflag} alt="Img not found" />
-        <div>Continente: {country.continent}</div>
-        <div>Subcontinente: {country.subregion}</div>
-        <div>Capital: {country.capital}</div>
-        <div>Población: {country.population}</div>
-        <div>Área: {country.area}</div>
-        <div>
+      <div className={styles.countryDetailBox}>
+        <div className={styles.countryDetailTitleBox}>
+          <Link to="/home">HOME</Link>
+
+          <h1>{country.name}</h1>
+        </div>
+        <div className={styles.flagData}>
+          <img src={country.imgflag} alt="Img not found" />
+          <div className={styles.data}>
+            <span>Continente: {country.continent}</span>
+            <span>Subcontinente: {country.subregion}</span>
+            <span>Capital: {country.capital}</span>
+            <span>Población: {country.population}</span>
+            <span>Área: {country.area}</span>
+          </div>
+        </div>
+        <div className={styles.contryDetailActivities}>
           <CountryActivities activities={country.activities} />
         </div>
-        <Link to="/home">HOME</Link>
       </div>
     );
   } else {
-    return (
-      <div>
-        Page Not Found
-        <Link to="/home">HOME</Link>
-      </div>
-    );
+    return <PageNotFound />;
   }
 };
 

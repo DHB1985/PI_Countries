@@ -1,11 +1,11 @@
 import React from "react";
-import { useState } from "react";
+//import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getCountryByName } from "../../redux/actions";
 
 const SearchBar = () => {
   const dispatch = useDispatch();
-  let [country, setCountry] = useState("");
+  // let [country, setCountry] = useState("");
 
   const handleInputChange = (event) => {
     event.preventDefault();
@@ -13,10 +13,10 @@ const SearchBar = () => {
     dispatch(getCountryByName(event.target.value));
   };
 
-  const handleSubmit = (event) => {
-    dispatch(getCountryByName(country));
-    event.preventDefault();
-  };
+  // const handleSubmit = (event) => {
+  //   dispatch(getCountryByName(country));
+  //   event.preventDefault();
+  // };
 
   return (
     <div>
@@ -25,9 +25,9 @@ const SearchBar = () => {
         placeholder="Buscar País..."
         onChange={(event) => handleInputChange(event)}
       />
-      <button type="submit" onClick={(event) => handleSubmit(event)}>
+      {/* <button type="submit" onClick={(event) => handleSubmit(event)}>
         Buscar
-      </button>
+      </button> */}
     </div>
   );
 };

@@ -1,23 +1,85 @@
-.homeBox{
+@media screen {
+  .homeBox {
     display: flex;
     flex-direction: column;
     align-items: center;
-}
+    height: 100vh;
+    /* background-image: url("https://yt3.ggpht.com/ytc/AKedOLR-PeE-sjM2G3806Es3t_weZVsB5Cj6Iz_iryVd=s900-c-k-c0x00ffffff-no-rj"); */
+     /* background-image: url("https://cdn.pixabay.com/photo/2020/04/20/21/29/world-map-5070024_960_720.jpg");  */
+    /* background-size: 100% 100vh; */
+    background-position: center; 
+    background-repeat: no-repeat; 
+    background-size: cover; 
+    /* background-image: url("../../img/WhatsApp\ Image\ 2021-11-29\ at\ 21.47.45.jpeg"); */
+    /* background-image: url("../../img/WhatsApp\ Image\ 2021-11-29\ at\ 21.44.13\ \(1\).jpeg"); */
+      background: linear-gradient(0deg, #00000088 30%,#ffffff44 100%, transparent);   
+     
+    }
 
-.homeTitleBox{
+  .homeTitleBox {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 98%;
+    max-height: 10vh;
+    
+  }
+
+  .buttonReset {
+    display: flex;
+    flex-shrink: 0;
+    width: 30%;
+    align-content: flex-end;
+  }
+
+  .titleH2 {
+    flex-shrink: 0;
+    width: 40%;
+    align-content: center;
+  }
+
+  .titleH2 h2{
+color: rgb(27, 175, 22);
+  }
+
+  .searchCreateAct {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-shrink: 0;
+    width: 30%;
+  }
+
+  .homeContentBox {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-}
+    width: 100%;
+    height: 90vh;
+    flex-shrink: 0;
+  }
 
-/* .filtredCouOrder{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-} */
-
-.homeContentBox{
+  .leftMenu {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    flex-shrink: 0;
+    width: 14%;
+    height: 90vh;
+  }
+
+  .dataCards {
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    width: 70%; /*Es un 2% menos para que quede un namrgen en los filtros*/
+    height: 90vh;
+  }
+
+  .filterActivity {
+    flex-shrink: 0;
+    width: 14%;
+    height: 90vh;
+  }
 }

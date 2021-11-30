@@ -1,0 +1,8 @@
+.pageNav {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    flex-shrink: 0;
+    width: 100%;
+    height: 10%;
+  }

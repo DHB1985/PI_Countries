@@ -4,9 +4,8 @@ import {
   GETALLCOUNTRIES,
   FILTERBYCONTINENT,
   ORDERBYCOUNTRYNAME,
-  ORDERBYCOUNTRYPOPULATION,
+ // ORDERBYCOUNTRYPOPULATION,
   GETCOUNTRYBYNAME,
-  POSTACTIVITY,
   GETCOUNTRYDETAIL,
   GETACTIVITIES,
   FILTERBYACTIVITY,
@@ -35,12 +34,12 @@ export const orderByCountryName = (payload) => {
     payload: payload,
   };
 };
-export const orderByCountryPopulation = (payload) => {
-  return {
-    type: ORDERBYCOUNTRYPOPULATION,
-    payload: payload,
-  };
-};
+// export const orderByCountryPopulation = (payload) => {
+//   return {
+//     type: ORDERBYCOUNTRYPOPULATION,
+//     payload: payload,
+//   };
+// };
 
 export const getCountryByName = (payload) => {
   return async (dispatch) => {
@@ -60,7 +59,8 @@ export const postActivity = (payload) => {
       "http://localhost:3001/activity",
       payload
     );
-    return response;
+    console.log('response post', response)
+    return response.data;
   };
 };
 

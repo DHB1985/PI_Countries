@@ -1,8 +1,7 @@
-/**Stilo de caja de cada carta**/
-.cardsBox {
+/* .cardsBox {
     display: flex;
     flex-direction: row;
-    /* align-items: center; */
+     align-items: center;
     justify-content: space-evenly;
     flex-wrap: wrap;
     width: 100%;
@@ -10,6 +9,17 @@
     padding: 0.25%;
     border-width: thin ;
     margin: 0.25%;
-    /* align-content: stretch;
-    align-items: stretch; */
-  }
+    align-content: stretch;
+    align-items: stretch;
+  } */
+
+.cardsBox {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-shrink: 0;
+  width: 100%;
+  height: 90%;
+}
