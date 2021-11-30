@@ -56,6 +56,7 @@ const CountrySort = ({ setCurrentPage, setOrden }) => {
               <input
                 type="radio"
                 id={index}
+                key={index}
                 name={element}
                 value={element}
                 checked={orderContinent[index]}
