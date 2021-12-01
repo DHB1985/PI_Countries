@@ -1,7 +1,7 @@
-'use strict';
-const axios =require  ("axios");
+"use strict";
+const axios = require("axios");
 //const sequelize = require("sequelize");
-const {Country, Season } = require("./db.js");
+const { Country, Season } = require("./db.js");
 
 const chargeDBCountries = async () => {
   let responsePromise = await axios.get("https://restcountries.com/v3/all");
@@ -48,21 +48,24 @@ const chargeDBCountries = async () => {
   }
 };
 
-
 module.exports = {
   startServer: async () => {
-    await Season.create({
-      name: "Otoño",
-    });
-    await Season.create({
-      name: "Invierno",
-    });
-    await Season.create({
-      name: "Primavera",
-    });
-    await Season.create({
-      name: "Verano",
-    });
-    await chargeDBCountries();
+    try {
+      await Season.create({
+        name: "Otoño",
+      });
+      await Season.create({
+        name: "Invierno",
+      });
+      await Season.create({
+        name: "Primavera",
+      });
+      await Season.create({
+        name: "Verano",
+      });
+      await chargeDBCountries();
+    } catch (e) {
+      console.log('startserver.js error: ',e);
+    }
   },
 };

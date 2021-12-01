@@ -3,7 +3,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
-   border: 1px solid black;
+   /* border: 1px solid black; */
     flex-shrink: 0;
     width: 30%;
     height: 24%;
@@ -36,8 +36,16 @@ padding-left: 7px;
     flex-shrink: 0;
      width: 57%;
      height: 100%; 
+     color: blanchedalmond;
 }
-
+a{
+    text-decoration: none;
+    color: blanchedalmond;
+}
+a:hover{
+    text-decoration: none;
+    color: red;
+}
 .dataContent label{
     font-size: 15px;
 }

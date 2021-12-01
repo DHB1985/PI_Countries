@@ -50,16 +50,16 @@ const ContinentFilter = ({ setCurrentPage }) => {
       {continentsList.map((element, index) => {
         return (
           <div key={"div" + index}>
-            <input
-              key={index}
-              type="checkbox"
-              id={index}
-              name={element}
-              value={element}
-              checked={filterContinent[index]}
-              onClick={handleFilterContinent}
-            />
-            <label for={element} key={"label" + index}>
+            <label key={"label" + index}>
+              <input
+                key={"input" + index}
+                type="checkbox"
+                id={index}
+                name={element}
+                value={element}
+                checked={filterContinent[index]}
+                onChange={(e) => handleFilterContinent(e)}
+              />
               {element}
             </label>
           </div>

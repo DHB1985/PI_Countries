@@ -2,7 +2,7 @@ import React from "react";
 import CountryCard from "../Card/Card";
 
 //Importacion de estilos
-import styles from "./Cards.module.css"
+import styles from "./Cards.module.css";
 
 const CountriesCards = ({ currentCountries }) => {
   return (
@@ -19,7 +19,7 @@ const CountriesCards = ({ currentCountries }) => {
                 continent={country.continent}
                 population={country.population}
                 id={country.id}
-                key = {"Card"+country.id}
+                key={"Card" + country.id}
               />
             );
           })}

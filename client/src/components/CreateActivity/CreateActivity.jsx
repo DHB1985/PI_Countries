@@ -177,7 +177,7 @@ const CreateActivity = () => {
   return (
     <div className={styles.contentBox}>
       <div className={styles.activityTitleBox}>
-        <Link to="/home">Volver</Link>
+        <Link to="/home"><button>Volver</button></Link>
         <h1>Crear Actividad</h1>
       </div>
       <div className={styles.activityData}>

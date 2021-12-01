@@ -21,7 +21,7 @@ import Paged from "../Paged/Paged";
 const Home = () => {
   const dispatch = useDispatch();
   const allCountries = useSelector((state) => state.countries);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getCountries());
@@ -30,8 +30,8 @@ const Home = () => {
 
   const handleClick = (event) => {
     dispatch(getCountries());
-    window.location.reload()
-   }; //Funcion para resetear el State, para que vuelva a traer todos los países
+    window.location.reload();
+  }; //Funcion para resetear el State, para que vuelva a traer todos los países
 
   //Estado para el ordenamiento
   //Esta puesto para que cambie el estado local y renderize
@@ -91,8 +91,7 @@ Sacando la serie a partir de la pagina 2 al difindexOfLastCountry hay que sumarl
   //Final de las funciones de paginado
 
   return (
-      
-    <div className={styles.homeBox} >
+    <div className={styles.homeBox}>
       <div className={styles.homeTitleBox}>
         <div className={styles.buttonReset}>
           <button
@@ -111,7 +110,9 @@ Sacando la serie a partir de la pagina 2 al difindexOfLastCountry hay que sumarl
         <div className={styles.searchCreateAct}>
           <SearchBar />
 
-          <Link to="/activity">Crear actividad Turística</Link>
+          <Link to="/activity">
+            <button>Crear actividad Turística</button>
+          </Link>
         </div>
       </div>
 

@@ -4,4 +4,16 @@
     align-items: flex-start;
     flex-shrink:0 ;
     height: 50%;
+    background-color: rgba(255,255,255,0.15);
+    border-radius: 15px;
+    margin: 5% 0 5% 0;
 }
+
+.filterContinent h4{
+    padding-left: 5%;
+color: blanchedalmond;
+}
+
+.filterContinent label{
+    color: blanchedalmond;
+    }
