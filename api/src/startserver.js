@@ -21,7 +21,10 @@ const chargeDBCountries = async () => {
 
     return {
       id: element.cca3,
-      name: element.translations.spa.common,
+      name: element.translations.spa.common
+        // .normalize("NFD")
+        // .replace(/[\u0300-\u036f]/g, "")
+        ,
       imgflag: element.flags[1],
       continent: element.region,
       capital: capit,
@@ -65,7 +68,7 @@ module.exports = {
       });
       await chargeDBCountries();
     } catch (e) {
-      console.log('startserver.js error: ',e);
+      console.log("startserver.js error: ", e);
     }
   },
 };

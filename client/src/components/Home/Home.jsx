@@ -21,7 +21,7 @@ import Paged from "../Paged/Paged";
 const Home = () => {
   const dispatch = useDispatch();
   const allCountries = useSelector((state) => state.countries);
-  const navigate = useNavigate();
+ // const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getCountries());
@@ -139,6 +139,7 @@ Sacando la serie a partir de la pagina 2 al difindexOfLastCountry hay que sumarl
             allCountries={allCountries}
             paged={paged}
             key={"page" + currentPage}
+            currentPage = {currentPage}
           />
         </div>
 

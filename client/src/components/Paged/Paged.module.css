@@ -20,8 +20,10 @@
 .pageNav button:hover {
   background-color: steelblue;
 }
+.pageNav button:active {
+  background-color: green;
+}
 
-.pageNav button:focus,
-button:active {
+.btnPage{
   background-color: red;
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Paged.module.css";
 
-const Paged = ({ countriesPerPage, allCountries, paged }) => {
+const Paged = ({ countriesPerPage, allCountries, paged, currentPage }) => {
   let pageNumbers = [];
   let resto = 0;
   //para saber la cantidad de paginas es ((paisesActuales-9)/10)+1 eso va dentro del Math.ceil
@@ -22,6 +22,8 @@ const Paged = ({ countriesPerPage, allCountries, paged }) => {
   } else {
     pageNumbers = [1];
   }
+
+  
   if (pageNumbers.length > 1) {
     return (
       <div className={styles.pageNav}>
@@ -32,6 +34,8 @@ const Paged = ({ countriesPerPage, allCountries, paged }) => {
               onClick={() => {
                 paged(num);
               }}
+              value = {num}
+              className = {currentPage === num? styles.btnPage:''}
             >
               {" "}
               {num}{" "}

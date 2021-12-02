@@ -51,7 +51,7 @@ const CountrySort = ({ setCurrentPage, setOrden }) => {
       <h4>Orden</h4>
       {sortedList.map((element, index) => {
         return (
-          <div>
+          <div key={'sortContinet'+index}>
             <label>
               <input
                 type="radio"

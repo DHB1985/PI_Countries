@@ -135,7 +135,7 @@ const CreateActivity = () => {
 
   //Funciones para hacer la barra de busqueda de paises
   const handleSelectCountries = (event) => {
-    console.log("event", event.target.name);
+ 
     setInput({
       ...input,
       countries: !input.countries.includes(event.target.id)

@@ -17,7 +17,7 @@ const CountryDetail = () => {
   }, [dispatch]);
 
   const country = useSelector((state) => state.countryDetail);
-  console.log("country detail", country);
+
   if (country !== "País no encontrado") {
     return (
       <div className={styles.countryDetailBox}>
