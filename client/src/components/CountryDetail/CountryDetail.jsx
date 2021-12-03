@@ -14,20 +14,28 @@ const CountryDetail = () => {
 
   useEffect(() => {
     dispatch(getCountryDetail(id));
-  }, [dispatch]);
+  }, [dispatch, id]);
 
   const country = useSelector((state) => state.countryDetail);
-  console.log("country detail", country);
+
   if (country !== "País no encontrado") {
     return (
       <div className={styles.countryDetailBox}>
         <div className={styles.countryDetailTitleBox}>
-          <Link to="/home">HOME</Link>
+          <Link to="/home">
+            <button>HOME</button>
+          </Link>
 
           <h1>{country.name}</h1>
         </div>
         <div className={styles.flagData}>
-          <img src={country.imgflag} alt="Img not found" />
+          <div className={styles.imgFlagDiv}>
+            <img
+              className={styles.imgFlag}
+              src={country.imgflag}
+              alt="Img not found"
+            />
+          </div>
           <div className={styles.data}>
             <span>Continente: {country.continent}</span>
             <span>Subcontinente: {country.subregion}</span>

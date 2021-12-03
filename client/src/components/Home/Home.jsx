@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCountries, getActivitiesList } from "../../redux/actions";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 //Importacion de estilos
 import styles from "./Home.module.css";
@@ -21,7 +21,7 @@ import Paged from "../Paged/Paged";
 const Home = () => {
   const dispatch = useDispatch();
   const allCountries = useSelector((state) => state.countries);
-  const navigate = useNavigate()
+ // const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getCountries());
@@ -30,8 +30,8 @@ const Home = () => {
 
   const handleClick = (event) => {
     dispatch(getCountries());
-    window.location.reload()
-   }; //Funcion para resetear el State, para que vuelva a traer todos los países
+    window.location.reload();
+  }; //Funcion para resetear el State, para que vuelva a traer todos los países
 
   //Estado para el ordenamiento
   //Esta puesto para que cambie el estado local y renderize
@@ -91,8 +91,7 @@ Sacando la serie a partir de la pagina 2 al difindexOfLastCountry hay que sumarl
   //Final de las funciones de paginado
 
   return (
-      
-    <div className={styles.homeBox} >
+    <div className={styles.homeBox}>
       <div className={styles.homeTitleBox}>
         <div className={styles.buttonReset}>
           <button
@@ -111,7 +110,9 @@ Sacando la serie a partir de la pagina 2 al difindexOfLastCountry hay que sumarl
         <div className={styles.searchCreateAct}>
           <SearchBar />
 
-          <Link to="/activity">Crear actividad Turística</Link>
+          <Link to="/activity">
+            <button>Crear actividad Turística</button>
+          </Link>
         </div>
       </div>
 
@@ -123,7 +124,7 @@ Sacando la serie a partir de la pagina 2 al difindexOfLastCountry hay que sumarl
 
           {/* Orden alfabetico o por poblacion ascendente o descendente */}
 
-          <CountrySort setCurrentPage={setCurrentPage} setOrden={setOrden} />
+          <CountrySort setCurrentPage={setCurrentPage} setOrden={setOrden} orden={orden} />
         </div>
 
         <div className={styles.dataCards}>
@@ -138,6 +139,7 @@ Sacando la serie a partir de la pagina 2 al difindexOfLastCountry hay que sumarl
             allCountries={allCountries}
             paged={paged}
             key={"page" + currentPage}
+            currentPage = {currentPage}
           />
         </div>
 

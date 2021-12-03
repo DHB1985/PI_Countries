@@ -9,7 +9,7 @@ return (
         <span>
             Error 404 Page not found
         </span>
-        <Link to="/home">HOME</Link>
+        <Link to="/home"><button>HOME</button></Link>
     </div>
 )
 }

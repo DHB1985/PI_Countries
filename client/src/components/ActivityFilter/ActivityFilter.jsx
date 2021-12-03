@@ -13,10 +13,10 @@ const ActivityFilter = ({ setCurrentPage }) => {
   //Funcion para ejecutar el filtrado por Actividad
 
   const handleFilterActivity = (event) => {
-    if (event.target.checked) {
-      dispatch(filterCountriesByActivity(event.target.value));
-      setCurrentPage(1);
-    }
+    dispatch(filterCountriesByActivity(event.target.value));
+    setCurrentPage(1);
+
+    event.preventDefault();
   };
 
   return (
@@ -24,7 +24,7 @@ const ActivityFilter = ({ setCurrentPage }) => {
       {/* Filtrado por Actividad */}
 
       <h4>Filtrado por Actividades</h4>
-      <div>
+      {/* <div>
         <label>
           <input
             type="radio"
@@ -35,8 +35,8 @@ const ActivityFilter = ({ setCurrentPage }) => {
           />
           All Countries
         </label>
-      </div>
-      {allActivities &&
+      </div> */}
+      {/* {allActivities &&
         allActivities.map((elem) => {
           return (
             <div>
@@ -52,7 +52,22 @@ const ActivityFilter = ({ setCurrentPage }) => {
               </label>
             </div>
           );
-        })}
+        })} */}
+      <div className={styles.selectActivity}>
+        <select onChange={(e) => handleFilterActivity(e)}>
+          <option key={"activityFilter All"} value="All">
+            All Countries
+          </option>
+          {allActivities &&
+            allActivities.map((elem) => {
+              return (
+                <option key={"activityFilter" + elem.name} value={elem.id}>
+                  {elem.name}
+                </option>
+              );
+            })}
+        </select>
+      </div>
     </div>
   );
 };

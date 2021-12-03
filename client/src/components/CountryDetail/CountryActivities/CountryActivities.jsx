@@ -4,7 +4,7 @@ import ActivitySeasons from "../ActivitySeasons/ActivitySeasons";
 import styles from './CountryActivities.module.css'
 
 const CountryActivities = ({activities}) => {
-    console.log('activities',activities)
+  
   return (
     <div className={styles.countryActivitiesList}>
       {activities &&

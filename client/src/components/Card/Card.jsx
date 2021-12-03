@@ -6,14 +6,13 @@ import styles from "./Card.module.css";
 
 const CountryCard = ({ imgflag, name, continent, population, id }) => {
   return (
-    <div className={styles.cardBox}>
+        <Link to={`/home/${id}`} className={styles.cardBox}>
+    {/* <div className={styles.cardBox}> */}
       <div className={styles.imgFlagBox}>
         <img src={imgflag} alt="Not Found" className={styles.imgFlag} />
       </div>
       <div className={styles.dataContent}>
-        <Link to={`/home/${id}`}>
           <label>{name}</label>
-        </Link>
         <div className={styles.cardInfo}>
           <label>Continente: {continent}</label> 
           {/* <label> </label>  */}
@@ -21,7 +20,8 @@ const CountryCard = ({ imgflag, name, continent, population, id }) => {
           <label>{population} hab.</label> 
         </div>
       </div>
-    </div>
+    {/* </div> */}
+        </Link>
   );
 };
 
