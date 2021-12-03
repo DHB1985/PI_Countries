@@ -78,21 +78,6 @@ const CreateActivity = () => {
     setHabilButton(buttonValidate(errors));
   }, [errors]);
 
-  // const handleChange = (event) => {
-  //   setInput({ ...input, [event.target.name]: event.target.value });
-  //   setErrors(validate({ ...input, [event.target.name]: event.target.value }));
-  // };
-
-  // const handleCheckDificulty = (event) => {
-  //   if (event.target.checked) {
-  //     setInput({
-  //       ...input,
-  //       difficulty: event.target.value,
-  //     });
-  //   }
-  //   setErrors(validate({ ...input, [event.target.name]: event.target.value }));
-  // };
-
   const handleCheckSeason = (event) => {
     if (event.target.checked) {
       setInput({
@@ -211,7 +196,6 @@ const CreateActivity = () => {
                   name="name"
                   autoComplete="off"
                   value={input.name}
-                  //onChange={(e) => handleChange(e)}
                   onChange={(e) => handleChangeIntegrated(e)}
                   placeholder="Ingrese el nombre..."
                 />
@@ -225,7 +209,6 @@ const CreateActivity = () => {
                   min="0.5"
                   step="0.5"
                   value={input.duration}
-                  //onChange={(e) => handleChange(e)}
                   onChange={(e) => handleChangeIntegrated(e)}
                   placeholder="Ingrese el nombre..."
                 />
@@ -239,8 +222,6 @@ const CreateActivity = () => {
                   id="Principiante"
                   name="difficulty"
                   value="Principiante"
-                  //checked="Principiante"
-                  // onChange={(e) => handleCheckDificulty(e)}
                   onChange={(e) => handleChangeIntegrated(e)}
                 />
                 Principiante
@@ -251,8 +232,6 @@ const CreateActivity = () => {
                   id="Aficionado"
                   name="difficulty"
                   value="Aficionado"
-                  //checked="Aficionado"
-                  //onChange={(e) => handleCheckDificulty(e)}
                   onChange={(e) => handleChangeIntegrated(e)}
                 />
                 Aficionado
@@ -263,8 +242,6 @@ const CreateActivity = () => {
                   id="Normal"
                   name="difficulty"
                   value="Normal"
-                  //checked="Normal"
-                  //onChange={(e) => handleCheckDificulty(e)}
                   onChange={(e) => handleChangeIntegrated(e)}
                 />
                 Normal
@@ -275,8 +252,6 @@ const CreateActivity = () => {
                   id="Profesional"
                   name="difficulty"
                   value="Profesional"
-                  //checked="Profesional"
-                  //onChange={(e) => handleCheckDificulty(e)}
                   onChange={(e) => handleChangeIntegrated(e)}
                 />
                 Profesional
@@ -287,8 +262,6 @@ const CreateActivity = () => {
                   id="Experto"
                   name="difficulty"
                   value="Experto"
-                  //checked="Experto"
-                  //onChange={(e) => handleCheckDificulty(e)}
                   onChange={(e) => handleChangeIntegrated(e)}
                 />
                 Experto
@@ -303,7 +276,6 @@ const CreateActivity = () => {
                   name="season"
                   value="Otoño"
                   onChange={(e) => handleCheckSeason(e)}
-                  //onChange={(e) => handleChangeIntegrated(e)}
                 />
                 Otoño
               </label>
@@ -313,7 +285,6 @@ const CreateActivity = () => {
                   name="season"
                   value="Invierno"
                   onChange={(e) => handleCheckSeason(e)}
-                  //onChange={(e) => handleChangeIntegrated(e)}
                 />
                 Invierno
               </label>
@@ -323,7 +294,6 @@ const CreateActivity = () => {
                   name="season"
                   value="Primavera"
                   onChange={(e) => handleCheckSeason(e)}
-                  //onChange={(e) => handleChangeIntegrated(e)}
                 />
                 Primavera
               </label>
@@ -333,7 +303,6 @@ const CreateActivity = () => {
                   name="season"
                   value="Verano"
                   onChange={(e) => handleCheckSeason(e)}
-                  //onChange={(e) => handleChangeIntegrated(e)}
                 />
                 Verano
               </label>
@@ -375,7 +344,10 @@ const CreateActivity = () => {
             <label>Paises:</label>
             <div className={styles.activityCountryList}>
               {input.countriesNames.map((element, index) => (
-                <div  key={'mapeocountries'+element} className={styles.countriesActivityList}>
+                <div
+                  key={"mapeocountries" + element}
+                  className={styles.countriesActivityList}
+                >
                   <span>
                     <img
                       src={input.countriesFlags[index]}
