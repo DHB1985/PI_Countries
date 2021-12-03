@@ -1,0 +1,13 @@
+
+  .activityDifficulty {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    flex-shrink: 0;
+    height: 90%;
+    width: 21%;
+    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: 15px;
+    margin: 1% 0 5% 0;
+  }
+
