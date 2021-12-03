@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCountries, getActivitiesList } from "../../redux/actions";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 //Importacion de estilos
 import styles from "./Home.module.css";
@@ -124,7 +124,7 @@ Sacando la serie a partir de la pagina 2 al difindexOfLastCountry hay que sumarl
 
           {/* Orden alfabetico o por poblacion ascendente o descendente */}
 
-          <CountrySort setCurrentPage={setCurrentPage} setOrden={setOrden} />
+          <CountrySort setCurrentPage={setCurrentPage} setOrden={setOrden} orden={orden} />
         </div>
 
         <div className={styles.dataCards}>

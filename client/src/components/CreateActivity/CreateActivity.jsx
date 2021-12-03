@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { postActivity, getActivitiesList } from "../../redux/actions";
@@ -123,7 +123,7 @@ const CreateActivity = () => {
 
   useEffect(() => {
     setErrors(validate(input));
-    setHabilButton(errors);
+    setHabilButton();
   }, [input]);
 
   //Uso este useEffect para que cada vez que cambie el estado error me habilite o deshabilite el boton

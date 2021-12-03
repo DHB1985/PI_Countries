@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { filterCountriesByContinent } from "../../redux/actions";
 
 //Importacion de estilos
@@ -35,9 +35,9 @@ const ContinentFilter = ({ setCurrentPage }) => {
     ];
     setFilterContinent(updateCheckedState);
 
-    let statusFilter = continentsList.filter((element, index) => {
-      if (updateCheckedState[index] === true) return element;
-    });
+    let statusFilter = continentsList.filter((element, index) => 
+      updateCheckedState[index] === true
+    );
 
     dispatch(filterCountriesByContinent(statusFilter));
     setCurrentPage(1);
