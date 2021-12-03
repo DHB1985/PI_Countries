@@ -1,6 +1,6 @@
 import React from "react";
-import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { postActivity, getActivitiesList } from "../../redux/actions";
@@ -63,20 +63,35 @@ const CreateActivity = () => {
     countries: "Se requiere al menos un país",
   });
 
-  const handleChange = (event) => {
-    setInput({ ...input, [event.target.name]: event.target.value });
-    setErrors(validate({ ...input, [event.target.name]: event.target.value }));
-  };
+  // //Uso este useEffect para que me dashabilite el boton de Crear Actividad porque si no lo pongo
+  // //e ingreso una letra en el nombre me lo habilita y si sigo escribiendo o pongo otra opción me lo
+  // //deshabilita
 
-  const handleCheckDificulty = (event) => {
-    if (event.target.checked) {
-      setInput({
-        ...input,
-        difficulty: event.target.value,
-      });
-    }
-    setErrors(validate({ ...input, [event.target.name]: event.target.value }));
-  };
+  useEffect(() => {
+    setErrors(validate(input));
+  }, [input]);
+
+  //Uso este useEffect para que cada vez que cambie el estado error me habilite o deshabilite el boton
+  //de crear actividad
+
+  useEffect(() => {
+    setHabilButton(buttonValidate(errors));
+  }, [errors]);
+
+  // const handleChange = (event) => {
+  //   setInput({ ...input, [event.target.name]: event.target.value });
+  //   setErrors(validate({ ...input, [event.target.name]: event.target.value }));
+  // };
+
+  // const handleCheckDificulty = (event) => {
+  //   if (event.target.checked) {
+  //     setInput({
+  //       ...input,
+  //       difficulty: event.target.value,
+  //     });
+  //   }
+  //   setErrors(validate({ ...input, [event.target.name]: event.target.value }));
+  // };
 
   const handleCheckSeason = (event) => {
     if (event.target.checked) {
@@ -117,25 +132,8 @@ const CreateActivity = () => {
     history("/home");
   };
 
-  // //Uso este useEffect para que me dashabilite el boton de Crear Actividad porque si no lo pongo
-  // //e ingreso una letra en el nombre me lo habilita y si sigo escribiendo o pongo otra opción me lo
-  // //deshabilita
-
-  useEffect(() => {
-    setErrors(validate(input));
-    setHabilButton();
-  }, [input]);
-
-  //Uso este useEffect para que cada vez que cambie el estado error me habilite o deshabilite el boton
-  //de crear actividad
-
-  useEffect(() => {
-    setHabilButton(buttonValidate(errors));
-  }, [errors]);
-
   //Funciones para hacer la barra de busqueda de paises
   const handleSelectCountries = (event) => {
- 
     setInput({
       ...input,
       countries: !input.countries.includes(event.target.id)
@@ -173,11 +171,29 @@ const CreateActivity = () => {
   };
 
   //Fin de funciones para la barra de busqueda
+  //Funcion para los cambios integrados
+
+  const handleChangeIntegrated = (event) => {
+    //event.preventDefault();
+    const target = event.target;
+    let value;
+    if (target.type === "radio") {
+      if (target.checked) value = target.value;
+    } else {
+      value = target.value;
+    }
+    const name = target.name;
+    console.log(value);
+    setInput({ ...input, [name]: value });
+    setErrors(validate({ ...input, [name]: value }));
+  };
 
   return (
     <div className={styles.contentBox}>
       <div className={styles.activityTitleBox}>
-        <Link to="/home"><button>Volver</button></Link>
+        <Link to="/home">
+          <button>Volver</button>
+        </Link>
         <h1>Crear Actividad</h1>
       </div>
       <div className={styles.activityData}>
@@ -195,7 +211,8 @@ const CreateActivity = () => {
                   name="name"
                   autoComplete="off"
                   value={input.name}
-                  onChange={(e) => handleChange(e)}
+                  //onChange={(e) => handleChange(e)}
+                  onChange={(e) => handleChangeIntegrated(e)}
                   placeholder="Ingrese el nombre..."
                 />
               </div>
@@ -208,7 +225,8 @@ const CreateActivity = () => {
                   min="0.5"
                   step="0.5"
                   value={input.duration}
-                  onChange={(e) => handleChange(e)}
+                  //onChange={(e) => handleChange(e)}
+                  onChange={(e) => handleChangeIntegrated(e)}
                   placeholder="Ingrese el nombre..."
                 />
               </div>
@@ -221,7 +239,9 @@ const CreateActivity = () => {
                   id="Principiante"
                   name="difficulty"
                   value="Principiante"
-                  onChange={(e) => handleCheckDificulty(e)}
+                  //checked="Principiante"
+                  // onChange={(e) => handleCheckDificulty(e)}
+                  onChange={(e) => handleChangeIntegrated(e)}
                 />
                 Principiante
               </label>
@@ -231,7 +251,9 @@ const CreateActivity = () => {
                   id="Aficionado"
                   name="difficulty"
                   value="Aficionado"
-                  onChange={(e) => handleCheckDificulty(e)}
+                  //checked="Aficionado"
+                  //onChange={(e) => handleCheckDificulty(e)}
+                  onChange={(e) => handleChangeIntegrated(e)}
                 />
                 Aficionado
               </label>
@@ -241,7 +263,9 @@ const CreateActivity = () => {
                   id="Normal"
                   name="difficulty"
                   value="Normal"
-                  onChange={(e) => handleCheckDificulty(e)}
+                  //checked="Normal"
+                  //onChange={(e) => handleCheckDificulty(e)}
+                  onChange={(e) => handleChangeIntegrated(e)}
                 />
                 Normal
               </label>
@@ -251,7 +275,9 @@ const CreateActivity = () => {
                   id="Profesional"
                   name="difficulty"
                   value="Profesional"
-                  onChange={(e) => handleCheckDificulty(e)}
+                  //checked="Profesional"
+                  //onChange={(e) => handleCheckDificulty(e)}
+                  onChange={(e) => handleChangeIntegrated(e)}
                 />
                 Profesional
               </label>
@@ -261,7 +287,9 @@ const CreateActivity = () => {
                   id="Experto"
                   name="difficulty"
                   value="Experto"
-                  onChange={(e) => handleCheckDificulty(e)}
+                  //checked="Experto"
+                  //onChange={(e) => handleCheckDificulty(e)}
+                  onChange={(e) => handleChangeIntegrated(e)}
                 />
                 Experto
               </label>
@@ -275,6 +303,7 @@ const CreateActivity = () => {
                   name="season"
                   value="Otoño"
                   onChange={(e) => handleCheckSeason(e)}
+                  //onChange={(e) => handleChangeIntegrated(e)}
                 />
                 Otoño
               </label>
@@ -284,6 +313,7 @@ const CreateActivity = () => {
                   name="season"
                   value="Invierno"
                   onChange={(e) => handleCheckSeason(e)}
+                  //onChange={(e) => handleChangeIntegrated(e)}
                 />
                 Invierno
               </label>
@@ -293,6 +323,7 @@ const CreateActivity = () => {
                   name="season"
                   value="Primavera"
                   onChange={(e) => handleCheckSeason(e)}
+                  //onChange={(e) => handleChangeIntegrated(e)}
                 />
                 Primavera
               </label>
@@ -302,6 +333,7 @@ const CreateActivity = () => {
                   name="season"
                   value="Verano"
                   onChange={(e) => handleCheckSeason(e)}
+                  //onChange={(e) => handleChangeIntegrated(e)}
                 />
                 Verano
               </label>
@@ -343,7 +375,7 @@ const CreateActivity = () => {
             <label>Paises:</label>
             <div className={styles.activityCountryList}>
               {input.countriesNames.map((element, index) => (
-                <div className={styles.countriesActivityList}>
+                <div  key={'mapeocountries'+element} className={styles.countriesActivityList}>
                   <span>
                     <img
                       src={input.countriesFlags[index]}
