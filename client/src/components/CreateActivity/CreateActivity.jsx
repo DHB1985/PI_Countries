@@ -4,7 +4,9 @@ import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { postActivity, getActivitiesList } from "../../redux/actions";
+
 import SearchCountryActivity from "./SearchCountryActivity/SearchCountryActivity";
+import SelectDifficulty from "./SelectDifficulty/SelectDifficulty";
 
 //Importacion de estilos
 import styles from "./CreateActivity.module.css";
@@ -214,59 +216,8 @@ const CreateActivity = () => {
                 />
               </div>
             </div>
-            <div className={styles.activityDifficulty}>
-              <label>Dificultad: </label>
-              <label>
-                <input
-                  type="radio"
-                  id="Principiante"
-                  name="difficulty"
-                  value="Principiante"
-                  onChange={(e) => handleChangeIntegrated(e)}
-                />
-                Principiante
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  id="Aficionado"
-                  name="difficulty"
-                  value="Aficionado"
-                  onChange={(e) => handleChangeIntegrated(e)}
-                />
-                Aficionado
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  id="Normal"
-                  name="difficulty"
-                  value="Normal"
-                  onChange={(e) => handleChangeIntegrated(e)}
-                />
-                Normal
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  id="Profesional"
-                  name="difficulty"
-                  value="Profesional"
-                  onChange={(e) => handleChangeIntegrated(e)}
-                />
-                Profesional
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  id="Experto"
-                  name="difficulty"
-                  value="Experto"
-                  onChange={(e) => handleChangeIntegrated(e)}
-                />
-                Experto
-              </label>
-            </div>
+
+            <SelectDifficulty handleChangeIntegrated={handleChangeIntegrated} />
 
             <div className={styles.activitySeason}>
               <label>Temporada: </label>
