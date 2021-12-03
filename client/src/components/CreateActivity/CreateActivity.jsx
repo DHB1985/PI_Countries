@@ -7,6 +7,7 @@ import { postActivity, getActivitiesList } from "../../redux/actions";
 
 import SearchCountryActivity from "./SearchCountryActivity/SearchCountryActivity";
 import SelectDifficulty from "./SelectDifficulty/SelectDifficulty";
+import SelectSeason from "./SelectSeason/SelectSeason";
 
 //Importacion de estilos
 import styles from "./CreateActivity.module.css";
@@ -219,45 +220,7 @@ const CreateActivity = () => {
 
             <SelectDifficulty handleChangeIntegrated={handleChangeIntegrated} />
 
-            <div className={styles.activitySeason}>
-              <label>Temporada: </label>
-              <label>
-                <input
-                  type="checkbox"
-                  name="season"
-                  value="Otoño"
-                  onChange={(e) => handleCheckSeason(e)}
-                />
-                Otoño
-              </label>
-              <label>
-                <input
-                  type="checkbox"
-                  name="season"
-                  value="Invierno"
-                  onChange={(e) => handleCheckSeason(e)}
-                />
-                Invierno
-              </label>
-              <label>
-                <input
-                  type="checkbox"
-                  name="season"
-                  value="Primavera"
-                  onChange={(e) => handleCheckSeason(e)}
-                />
-                Primavera
-              </label>
-              <label>
-                <input
-                  type="checkbox"
-                  name="season"
-                  value="Verano"
-                  onChange={(e) => handleCheckSeason(e)}
-                />
-                Verano
-              </label>
-            </div>
+            <SelectSeason handleCheckSeason={handleCheckSeason} />
           </form>
           <SearchCountryActivity
             handleSelectCountries={handleSelectCountries}
