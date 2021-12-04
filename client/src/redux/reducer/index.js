@@ -41,6 +41,13 @@ const rootReducer = (state = initialState, action) => {
         state.countries,
         state.allCountries
       );
+      console.log(stateFiltered)
+      stateFiltered = filterByActivity(
+        state.activityFilter,
+        stateFiltered,
+        state.allCountries,
+        true
+      );
       stateFiltered = sortedCountries(state.sort, stateFiltered);
 
       return {
@@ -89,7 +96,8 @@ const rootReducer = (state = initialState, action) => {
       let stateFilteredAct = filterByActivity(
         action.payload,
         state.countries,
-        state.allCountries
+        state.allCountries,
+        false
       );
       stateFilteredAct = sortedCountries(state.sort, stateFilteredAct);
       return {

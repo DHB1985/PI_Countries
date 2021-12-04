@@ -59,6 +59,7 @@ export const postActivity = (payload) => {
       "http://localhost:3001/activity",
       payload
     );
+    console.log('response post',response.data)
      return response.data;
   };
 };
