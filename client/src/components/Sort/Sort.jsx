@@ -24,6 +24,7 @@ const CountrySort = ({ setCurrentPage, setOrden }) => {
     false,
     false,
   ]);
+
   //Funcion para ejecutar el ordenamiento por nombre
 
   const handleOrder = (event) => {
@@ -36,37 +37,25 @@ const CountrySort = ({ setCurrentPage, setOrden }) => {
     setOrden(`Ordenado ${event.target.value}`);
   };
 
-  //Funcion para ejecutar el ordenamiento por poblacion
-  // const handleOrderByPopulation = (event) => {
-  //   dispatch(orderByCountryPopulation(event.target.value));
-  //   setCurrentPage(1);
-  //   setOrden(`Ordenado ${event.target.value}`);
-  //   event.preventDefault();
-  // };
-
   return (
     <div className={styles.sortContinent}>
       {/* Orden Ascendente/Descendente por nombre*/}
       {/* Orden Ascendente/Descendente por cantidad de poblacion*/}
       <h4>Orden</h4>
-      {sortedList.map((element, index) => {
-        return (
-          <div key={'sortContinet'+index}>
-            <label>
-              <input
-                type="radio"
-                id={index}
-                key={index}
-                name={element}
-                value={element}
-                checked={orderContinent[index]}
-                onChange={(event) => handleOrder(event)}
-              />
-              {sortedLabelName[index]}
-            </label>
-          </div>
-        );
-      })}
+      <div key={"sortContinet"}>
+        <select onChange={(event) => handleOrder(event)}>
+          <option key={"sortContinent Orden"} value="Orden">
+            Orden...
+          </option>
+          {sortedList.map((element, index) => {
+            return (
+              <option key={"activityFilter" + element} value={element}>
+                {sortedLabelName[index]}
+              </option>
+            );
+          })}
+        </select>
+      </div>
     </div>
   );
 };
