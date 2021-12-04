@@ -1,0 +1,8 @@
+.errorsList {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-shrink: 0;
+    height: 80%;
+    margin: 1% 0 5% 0;
+  }

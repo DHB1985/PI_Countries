@@ -8,26 +8,27 @@ import { postActivity, getActivitiesList } from "../../redux/actions";
 import SearchCountryActivity from "./SearchCountryActivity/SearchCountryActivity";
 import SelectDifficulty from "./SelectDifficulty/SelectDifficulty";
 import SelectSeason from "./SelectSeason/SelectSeason";
+import ErrorsList from "./ActivityErrors/ActivityErrors";
 
 //Importacion de estilos
 import styles from "./CreateActivity.module.css";
 
 const validate = (input) => {
-  let errors = {};
+  let errors = [];
   if (!input.name) {
-    errors.name = "Se requiere un nombre";
+    errors = [...errors, "Se requiere un nombre"];
   }
   if (!input.difficulty) {
-    errors.difficulty = "Se requiere una dificultad";
+    errors = [...errors, "Se requiere una dificultad"];
   }
   if (!input.duration) {
-    errors.duration = "Se requiere una duracion";
+    errors = [...errors, "Se requiere una duracion"];
   }
   if (input.season.length === 0) {
-    errors.season = "Se requiere una temporada";
+    errors = [...errors, "Se requiere una temporada"];
   }
   if (input.countries.length === 0) {
-    errors.countries = "Se requiere al menos un país";
+    errors = [...errors, "Se requiere al menos un país"];
   }
 
   return errors;
@@ -58,13 +59,13 @@ const CreateActivity = () => {
 
   let [habilButton, setHabilButton] = useState(true);
 
-  const [errors, setErrors] = useState({
-    name: "Se requiere un nombre",
-    difficulty: "Se requiere una dificultad",
-    duration: "Se requiere una duracion",
-    season: "Se requiere una temporada",
-    countries: "Se requiere al menos un país",
-  });
+  const [errors, setErrors] = useState([
+    "Se requiere un NOMBRE",
+    "Se requiere una DIFICULTAD",
+    "Se requiere una DURACION",
+    "Se requiere una TEMPORADA",
+    "Se requiere al menos un PAÍS",
+  ]);
 
   // //Uso este useEffect para que me dashabilite el boton de Crear Actividad porque si no lo pongo
   // //e ingreso una letra en el nombre me lo habilita y si sigo escribiendo o pongo otra opción me lo
@@ -162,7 +163,6 @@ const CreateActivity = () => {
   //Funcion para los cambios integrados
 
   const handleChangeIntegrated = (event) => {
-    //event.preventDefault();
     const target = event.target;
     let value;
     if (target.type === "radio") {
@@ -228,23 +228,8 @@ const CreateActivity = () => {
         </div>
         <div className={styles.activityFooter}>
           <div className={styles.errorsListBtn}>
-            <div className={styles.errorsList}>
-              <label>Errores</label>
-              <label>Nombre: {errors.name ? errors.name : "Sin errores"}</label>
-              <label>
-                Tiempo: {errors.duration ? errors.duration : "Sin errores"}
-              </label>
-              <label>
-                Dificultad:
-                {errors.difficulty ? errors.difficulty : "Sin errores"}
-              </label>
-              <label>
-                Temporadas:{errors.season ? errors.season : "Sin errores"}
-              </label>
-              <label>
-                Países:{errors.countries ? errors.countries : "Sin errores"}
-              </label>
-            </div>
+            <ErrorsList errors={errors} />
+
             <button
               type="submit"
               disabled={habilButton}
