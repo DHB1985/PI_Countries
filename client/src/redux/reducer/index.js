@@ -47,44 +47,7 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case ORDERBYCOUNTRYNAME:
-      let sortedCountries;
-      if (action.payload === "ascendName") {
-        sortedCountries = state.countries.sort((a, b) => {
-          if (a.name > b.name) {
-            return 1;
-          } else if (b.name > a.name) {
-            return -1;
-          }
-          return 0;
-        });
-      } else if (action.payload === "descendName") {
-        sortedCountries = state.countries.sort((a, b) => {
-          if (a.name > b.name) {
-            return -1;
-          } else if (b.name > a.name) {
-            return 1;
-          }
-          return 0;
-        });
-      } else if (action.payload === "ascendPob") {
-        sortedCountries = state.countries.sort((a, b) => {
-          if (a.population > b.population) {
-            return 1;
-          } else if (b.population > a.population) {
-            return -1;
-          }
-          return 0;
-        });
-      } else if (action.payload === "descendPob") {
-        sortedCountries = state.countries.sort((a, b) => {
-          if (a.population > b.population) {
-            return -1;
-          } else if (b.population > a.population) {
-            return 1;
-          }
-          return 0;
-        });
-      }
+      let sortedCountries = sortedCountries(action.payload, state.allCountries);
       return {
         ...state,
         countries: sortedCountries,
