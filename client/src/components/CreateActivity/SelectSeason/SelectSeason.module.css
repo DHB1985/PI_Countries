@@ -1,0 +1,17 @@
+.activitySeason {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  flex-shrink: 0;
+  height: 90%;
+  width: 21%;
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 15px;
+  margin: 1% 0 5% 0;
+  /* background: rgba( 235, 242, 255, 0.2 );
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+  backdrop-filter: blur( 0px );
+  -webkit-backdrop-filter: blur( 0px );
+  border-radius: 10px;
+  border: 1px solid rgba( 255, 255, 255, 0.18 ); */
+}
