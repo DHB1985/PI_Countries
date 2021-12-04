@@ -1,4 +1,8 @@
-import {sortedCountries} from '../../utils/Utils.jsx'
+import {
+  sortedCountries,
+  filterByActivity,
+  filterByContinent,
+} from "../../utils/Utils.jsx";
 import {
   GETALLCOUNTRIES,
   FILTERBYCONTINENT,
@@ -17,7 +21,8 @@ const initialState = {
   countryDetail: [],
   activitiesNamesId: [],
   continentsFilter: [],
-  sort:""
+  sort: "",
+  activityFilter: "",
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -31,19 +36,13 @@ const rootReducer = (state = initialState, action) => {
 
     case FILTERBYCONTINENT:
       let stateFiltered = [];
-      if (action.payload.length !== 0) {
-        for (let element of action.payload) {
-          stateFiltered = [
-            ...stateFiltered,
-            ...state.allCountries.filter(
-              (value) => value.continent === element
-            ),
-          ];
-        }
-      } else {
-        stateFiltered = state.allCountries;
-      }
+      stateFiltered = filterByContinent(
+        action.payload,
+        state.countries,
+        state.allCountries
+      );
       stateFiltered = sortedCountries(state.sort, stateFiltered);
+
       return {
         ...state,
         countries: stateFiltered,
@@ -54,7 +53,7 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         countries: sorted,
-        sort: action.payload
+        sort: action.payload,
       };
 
     case GETCOUNTRYBYNAME:
@@ -87,25 +86,16 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case FILTERBYACTIVITY:
-      let stateFilteredAct = [];
-      if (action.payload === "All") {
-        stateFilteredAct = state.countries;
-      } else {
-        let id = parseInt(action.payload);
-        for (let element of state.countries) {
-          if (element.activities.length !== 0) {
-            for (let elem of element.activities) {
-              if (elem.id === id) {
-                stateFilteredAct = [...stateFilteredAct, element];
-              }
-            }
-          }
-        }
-      }
+      let stateFilteredAct = filterByActivity(
+        action.payload,
+        state.countries,
+        state.allCountries
+      );
       stateFilteredAct = sortedCountries(state.sort, stateFilteredAct);
       return {
         ...state,
         countries: stateFilteredAct,
+        activityFilter: action.payload,
       };
 
     default:

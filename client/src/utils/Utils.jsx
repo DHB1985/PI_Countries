@@ -45,6 +45,44 @@ const sortedCountries = (payload, countries)=>{
     return sorted
 }
 
+const filterByActivity = (payload, countries, allCountries) =>{
+    let stateFilteredAct = [];
+    if (payload === "All" || payload === "") {
+        stateFilteredAct = allCountries;
+      } else {
+        let id = parseInt(payload);
+        for (let element of countries) {
+          if (element.activities.length !== 0) {
+            for (let elem of element.activities) {
+              if (elem.id === id) {
+                stateFilteredAct = [...stateFilteredAct, element];
+              }
+            }
+          }
+        }
+      }
+      return stateFilteredAct
+}
+
+const filterByContinent = (payload, countries, allCountries) =>{
+    let stateFiltered = [];
+    if (payload.length !== 0) {
+      for (let element of payload) {
+        stateFiltered = [
+          ...stateFiltered,
+          ...countries.filter(
+            (value) => value.continent === element
+          ),
+        ];
+      }
+    } else {
+      stateFiltered = allCountries;
+    }
+    return stateFiltered
+}
+
 export {
-    sortedCountries
+    sortedCountries,
+    filterByActivity,
+    filterByContinent
 }
