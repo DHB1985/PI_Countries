@@ -1,10 +1,10 @@
-const sortedCountries = (payload, allCountries)=>{
-    let sortedCountries;
-    if (payload === "Orden") {
-      sortedCountries = allCountries;
+const sortedCountries = (payload, countries)=>{
+    let sorted;
+    if (payload === "Orden" || payload === "") {
+      sorted = countries;
     } else {
       if (payload === "ascendName") {
-        sortedCountries = countries.sort((a, b) => {
+        sorted = countries.sort((a, b) => {
           if (a.name > b.name) {
             return 1;
           } else if (b.name > a.name) {
@@ -13,7 +13,7 @@ const sortedCountries = (payload, allCountries)=>{
           return 0;
         });
       } else if (payload === "descendName") {
-        sortedCountries = countries.sort((a, b) => {
+        sorted = countries.sort((a, b) => {
           if (a.name > b.name) {
             return -1;
           } else if (b.name > a.name) {
@@ -22,7 +22,7 @@ const sortedCountries = (payload, allCountries)=>{
           return 0;
         });
       } else if (payload === "ascendPob") {
-        sortedCountries = countries.sort((a, b) => {
+        sorted = countries.sort((a, b) => {
           if (a.population > b.population) {
             return 1;
           } else if (b.population > a.population) {
@@ -31,7 +31,7 @@ const sortedCountries = (payload, allCountries)=>{
           return 0;
         });
       } else if (payload === "descendPob") {
-        sortedCountries = countries.sort((a, b) => {
+        sorted = countries.sort((a, b) => {
           if (a.population > b.population) {
             return -1;
           } else if (b.population > a.population) {
@@ -42,9 +42,9 @@ const sortedCountries = (payload, allCountries)=>{
       }
     }
 
-    return sortedCountries
+    return sorted
 }
 
-export default {
+export {
     sortedCountries
 }

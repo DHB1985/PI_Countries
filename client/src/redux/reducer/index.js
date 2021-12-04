@@ -1,3 +1,4 @@
+import {sortedCountries} from '../../utils/Utils.jsx'
 import {
   GETALLCOUNTRIES,
   FILTERBYCONTINENT,
@@ -16,6 +17,7 @@ const initialState = {
   countryDetail: [],
   activitiesNamesId: [],
   continentsFilter: [],
+  sort:""
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -41,16 +43,18 @@ const rootReducer = (state = initialState, action) => {
       } else {
         stateFiltered = state.allCountries;
       }
+      stateFiltered = sortedCountries(state.sort, stateFiltered);
       return {
         ...state,
         countries: stateFiltered,
       };
 
     case ORDERBYCOUNTRYNAME:
-      let sortedCountries = sortedCountries(action.payload, state.allCountries);
+      let sorted = sortedCountries(action.payload, state.countries);
       return {
         ...state,
-        countries: sortedCountries,
+        countries: sorted,
+        sort: action.payload
       };
 
     case GETCOUNTRYBYNAME:
@@ -85,10 +89,10 @@ const rootReducer = (state = initialState, action) => {
     case FILTERBYACTIVITY:
       let stateFilteredAct = [];
       if (action.payload === "All") {
-        stateFilteredAct = state.allCountries;
+        stateFilteredAct = state.countries;
       } else {
         let id = parseInt(action.payload);
-        for (let element of state.allCountries) {
+        for (let element of state.countries) {
           if (element.activities.length !== 0) {
             for (let elem of element.activities) {
               if (elem.id === id) {
@@ -98,7 +102,7 @@ const rootReducer = (state = initialState, action) => {
           }
         }
       }
-
+      stateFilteredAct = sortedCountries(state.sort, stateFilteredAct);
       return {
         ...state,
         countries: stateFilteredAct,
