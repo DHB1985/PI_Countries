@@ -10,9 +10,9 @@ const SelectSeason = ({ handleCheckSeason }) => {
       <label>Temporada: </label>
       {seasonsList.map((element) => {
         return (
-          <label>
+          <label  key = {'selectSeasonLabel'+element}>
             <input
-              key={element}
+              key={'selectSeason'+element}
               type="checkbox"
               id={element}
               name="season"

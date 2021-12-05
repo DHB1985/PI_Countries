@@ -7,7 +7,7 @@ const ErrorsList = ({ errors }) => {
     <label>Errores</label>
     {errors &&
       errors.map((element) => {
-       return ( <label>{element}</label>)
+       return ( <label  key={'errorListLabel'+element}>{element}</label>)
       })}
   </div>)
 };

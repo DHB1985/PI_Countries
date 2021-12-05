@@ -14,7 +14,11 @@
     background-size: cover;
     /* background: linear-gradient(0deg, #00000088 30%,#ffffff44 100%, transparent);    */
   }
-
+  .imgLoading{
+    display: flex;
+    align-items: center;
+    
+  }
   .homeTitleBox {
     flex-shrink: 0;
     display: flex;

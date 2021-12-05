@@ -21,8 +21,12 @@ const CountryDetail = () => {
   country= useSelector((state) => state.countryDetail);
   
   if (country !== "País no encontrado") {
-    if (Object.keys(country).length === 0){
-      return (<img src={loadingIMG} alt="" width = "20%" height = "20%"/>)
+    if (country.id !== id){
+      return (
+        <div className={styles.countryDetailBox}>
+      <img src={loadingIMG} alt="" width = "20%" height = "20%"/>
+      </div>
+      )
     } else {
     return (
       <div className={styles.countryDetailBox}>

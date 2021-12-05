@@ -155,8 +155,9 @@ Sacando la serie a partir de la pagina 2 al difindexOfLastCountry hay que sumarl
 
           {currentCountries.length > 0 ? 
           <CountriesCards currentCountries={currentCountries} />
-          :
-          <img src={loadingIMG} alt="" width = "20%" height = "20%"/>
+          :<div >
+          <img src={loadingIMG} alt="" width = "40%" height = "40%"/>
+          </div>
           }
           {/* Mapeo del Paginado */}
 
