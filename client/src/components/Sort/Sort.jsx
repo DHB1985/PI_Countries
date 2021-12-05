@@ -1,16 +1,9 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import {
-  orderByCountryName,
-  // orderByCountryPopulation,
-} from "../../redux/actions";
-import { useState } from "react";
 
 //Importacion de estilos
 import styles from "./Sort.module.css";
 
-const CountrySort = ({ setCurrentPage, setOrden }) => {
-  const dispatch = useDispatch();
+const CountrySort = ({ setCurrentPage, setFilterState, filterState }) => {
   const sortedList = ["ascendName", "descendName", "ascendPob", "descendPob"];
   const sortedLabelName = [
     "Nombre Ascendente",
@@ -18,23 +11,13 @@ const CountrySort = ({ setCurrentPage, setOrden }) => {
     "Poblac. Ascendente",
     "Poblac. Descendente",
   ];
-  const [orderContinent, setOrderContinent] = useState([
-    false,
-    false,
-    false,
-    false,
-  ]);
 
   //Funcion para ejecutar el ordenamiento por nombre
 
   const handleOrder = (event) => {
-    const updateCheckedState = orderContinent.map((element, index) =>
-      index === parseInt(event.target.id) ? !element : false
-    );
-    setOrderContinent(updateCheckedState);
-    dispatch(orderByCountryName(event.target.value));
+    setFilterState({ ...filterState, sort: event.target.value });
+
     setCurrentPage(1);
-    setOrden(`Ordenado ${event.target.value}`);
   };
 
   return (

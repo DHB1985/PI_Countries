@@ -1,19 +1,19 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { filterCountriesByActivity } from "../../redux/actions";
+import {useSelector } from "react-redux";
+
 
 //Importacion de estilos
 import styles from "./ActivityFilter.module.css";
 
-const ActivityFilter = ({ setCurrentPage }) => {
-  const dispatch = useDispatch();
+const ActivityFilter = ({ setCurrentPage, setFilterState, filterState }) => {
+
 
   const allActivities = useSelector((state) => state.activitiesNamesId);
 
   //Funcion para ejecutar el filtrado por Actividad
 
   const handleFilterActivity = (event) => {
-    dispatch(filterCountriesByActivity(event.target.value));
+    setFilterState({...filterState, activity:event.target.value})
     setCurrentPage(1);
     event.preventDefault();
   };

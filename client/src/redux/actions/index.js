@@ -9,6 +9,7 @@ import {
   GETCOUNTRYDETAIL,
   GETACTIVITIES,
   FILTERBYACTIVITY,
+  ALLFILTERS
 } from "./constants";
 
 export const getCountries = () => {
@@ -89,6 +90,13 @@ export const getActivitiesList = () => {
 export const filterCountriesByActivity = (payload) => {
    return {
     type: FILTERBYACTIVITY,
+    payload: payload,
+  };
+};
+
+export const allFilters = (payload) => {
+   return {
+    type: ALLFILTERS,
     payload: payload,
   };
 };

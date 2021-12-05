@@ -1,7 +1,11 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCountries, getActivitiesList } from "../../redux/actions";
+import {
+  getCountries,
+  getActivitiesList,
+  allFilters,
+} from "../../redux/actions";
 import { Link } from "react-router-dom";
 
 //Importacion de estilos
@@ -21,23 +25,27 @@ import Paged from "../Paged/Paged";
 const Home = () => {
   const dispatch = useDispatch();
   const allCountries = useSelector((state) => state.countries);
- // const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getCountries());
     dispatch(getActivitiesList());
   }, [dispatch]);
 
+  //Estado local para los filtros
+  const [filterState, setFilterState] = useState({
+    continent: [],
+    sort: "Orden",
+    activity: "All",
+  });
+
+  useEffect(() => {
+    dispatch(allFilters(filterState));
+  }, [filterState, dispatch]);
+
   const handleClick = (event) => {
     dispatch(getCountries());
     window.location.reload();
   }; //Funcion para resetear el State, para que vuelva a traer todos los países
-
-  //Estado para el ordenamiento
-  //Esta puesto para que cambie el estado local y renderize
-  //la pagina cada vez que ordeno por población o por nombre
-  //Si no lo pongo cuando esta enn la pagina 1 no lo renderiza de nuevo
-  const [orden, setOrden] = useState("");
 
   // Estados locales para setear el paginado
   const [currentPage, setCurrentPage] = useState(1); //Setea la página actual en 1
@@ -120,11 +128,19 @@ Sacando la serie a partir de la pagina 2 al difindexOfLastCountry hay que sumarl
         <div className={styles.leftMenu}>
           {/* Filtrado por Continente */}
 
-          <ContinentFilter setCurrentPage={setCurrentPage} />
+          <ContinentFilter
+            setCurrentPage={setCurrentPage}
+            setFilterState={setFilterState}
+            filterState={filterState}
+          />
 
           {/* Orden alfabetico o por poblacion ascendente o descendente */}
 
-          <CountrySort setCurrentPage={setCurrentPage} setOrden={setOrden} orden={orden} />
+          <CountrySort
+            setCurrentPage={setCurrentPage}
+            setFilterState={setFilterState}
+            filterState={filterState}
+          />
         </div>
 
         <div className={styles.dataCards}>
@@ -139,14 +155,18 @@ Sacando la serie a partir de la pagina 2 al difindexOfLastCountry hay que sumarl
             allCountries={allCountries}
             paged={paged}
             key={"page" + currentPage}
-            currentPage = {currentPage}
+            currentPage={currentPage}
           />
         </div>
 
         <div className={styles.filterActivity}>
           {/* Filtrado por Actividad */}
 
-          <ActivityFilter setCurrentPage={setCurrentPage} />
+          <ActivityFilter
+            setCurrentPage={setCurrentPage}
+            setFilterState={setFilterState}
+            filterState={filterState}
+          />
         </div>
       </div>
     </div>
