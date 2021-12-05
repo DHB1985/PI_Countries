@@ -8,13 +8,13 @@ const CountryActivities = ({activities}) => {
   return (
     <div className={styles.countryActivitiesList}>
       {activities &&
-        activities.map((activiti) => {
+        activities.map((activity) => {
           return (
-            <div className={styles.countryActivitiesDetail}>
-              <span>Actividad: {activiti.name}</span>
-              <span>Dificultad: {activiti.difficulty}</span>
-              <span>Duración: {activiti.duration} hs.</span>
-              <ActivitySeasons seasons = {activiti.seasons}/>
+            <div key={activity.id} className={styles.countryActivitiesDetail}>
+              <span>Actividad: {activity.name}</span>
+              <span>Dificultad: {activity.difficulty}</span>
+              <span>Duración: {activity.duration} hs.</span>
+              <ActivitySeasons seasons = {activity.seasons}/>
             </div>
           );
         })}
