@@ -22,6 +22,8 @@ import ActivityFilter from "../ActivityFilter/ActivityFilter";
 //Importacion del Paginado
 import Paged from "../Paged/Paged";
 
+import loadingIMG from '../../img/GIF_Mundo_Banderas.gif'
+
 const Home = () => {
   const dispatch = useDispatch();
   const allCountries = useSelector((state) => state.countries);
@@ -151,8 +153,11 @@ Sacando la serie a partir de la pagina 2 al difindexOfLastCountry hay que sumarl
         <div className={styles.dataCards}>
           {/* Área para el mapeo de las cartas */}
 
+          {currentCountries.length > 0 ? 
           <CountriesCards currentCountries={currentCountries} />
-
+          :
+          <img src={loadingIMG} alt="" width = "20%" height = "20%"/>
+          }
           {/* Mapeo del Paginado */}
 
           <Paged

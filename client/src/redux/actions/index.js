@@ -33,9 +33,9 @@ export const getCountryDetail = (payload) => {
       `http://localhost:3001/countries/${payload}`
     );
     return dispatch({
-      type: GETCOUNTRYDETAIL,
+       type: GETCOUNTRYDETAIL,
       payload: response.data,
-    });
+     });
   };
 };
 

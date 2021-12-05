@@ -7,18 +7,23 @@ import CountryActivities from "./CountryActivities/CountryActivities";
 
 import styles from "./CountryDetail.module.css";
 import PageNotFound from "../PageNotFound/PageNotFound";
-
+import loadingIMG from '../../img/GIF_Mundo_Banderas.gif'
 const CountryDetail = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
+  let country = ''
 
-  useEffect(() => {
+  
+  useEffect(async () => {
     dispatch(getCountryDetail(id));
   }, [dispatch, id]);
-
-  const country = useSelector((state) => state.countryDetail);
-
+  
+  country= useSelector((state) => state.countryDetail);
+  
   if (country !== "País no encontrado") {
+    if (Object.keys(country).length === 0){
+      return (<img src={loadingIMG} alt="" width = "20%" height = "20%"/>)
+    } else {
     return (
       <div className={styles.countryDetailBox}>
         <div className={styles.countryDetailTitleBox}>
@@ -48,7 +53,7 @@ const CountryDetail = () => {
           <CountryActivities activities={country.activities} />
         </div>
       </div>
-    );
+    );}
   } else {
     return <PageNotFound />;
   }
