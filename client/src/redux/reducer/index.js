@@ -13,6 +13,7 @@ import {
   GETCOUNTRYDETAIL,
   GETACTIVITIES,
   FILTERBYACTIVITY,
+  ALLFILTERS,
 } from "../actions/constants";
 
 const initialState = {
@@ -34,34 +35,34 @@ const rootReducer = (state = initialState, action) => {
         allCountries: action.payload,
       };
 
-    case FILTERBYCONTINENT:
-      let stateFiltered = [];
-      stateFiltered = filterByContinent(
-        action.payload,
-        state.countries,
-        state.allCountries
-      );
-      console.log(stateFiltered)
-      stateFiltered = filterByActivity(
-        state.activityFilter,
-        stateFiltered,
-        state.allCountries,
-        true
-      );
-      stateFiltered = sortedCountries(state.sort, stateFiltered);
+    // case FILTERBYCONTINENT:
+    //   let stateFiltered = [];
+    //   stateFiltered = filterByContinent(
+    //     action.payload,
+    //     state.countries,
+    //     state.allCountries
+    //   );
+    //   console.log(stateFiltered)
+    //   stateFiltered = filterByActivity(
+    //     state.activityFilter,
+    //     stateFiltered,
+    //     state.allCountries,
+    //     true
+    //   );
+    //   stateFiltered = sortedCountries(state.sort, stateFiltered);
 
-      return {
-        ...state,
-        countries: stateFiltered,
-      };
+    //   return {
+    //     ...state,
+    //     countries: stateFiltered,
+    //   };
 
-    case ORDERBYCOUNTRYNAME:
-      let sorted = sortedCountries(action.payload, state.countries);
-      return {
-        ...state,
-        countries: sorted,
-        sort: action.payload,
-      };
+    // case ORDERBYCOUNTRYNAME:
+    //   let sorted = sortedCountries(action.payload, state.countries);
+    //   return {
+    //     ...state,
+    //     countries: sorted,
+    //     sort: action.payload,
+    //   };
 
     case GETCOUNTRYBYNAME:
       return {
@@ -92,18 +93,40 @@ const rootReducer = (state = initialState, action) => {
         activitiesNamesId: activitys,
       };
 
-    case FILTERBYACTIVITY:
-      let stateFilteredAct = filterByActivity(
-        action.payload,
-        state.countries,
-        state.allCountries,
-        false
+    // case FILTERBYACTIVITY:
+    //   let stateFilteredAct = filterByActivity(
+    //     action.payload,
+    //     state.countries,
+    //     state.allCountries,
+    //     false
+    //   );
+    //   stateFilteredAct = sortedCountries(state.sort, stateFilteredAct);
+    //   return {
+    //     ...state,
+    //     countries: stateFilteredAct,
+    //     activityFilter: action.payload,
+    //   };
+
+    case ALLFILTERS:
+      let countriesAllFilters = state.allCountries;
+      if (action.payload.continent.length !== 0) {
+        countriesAllFilters = filterByContinent(
+          action.payload.continent,
+          countriesAllFilters
+        );
+      }
+      countriesAllFilters = filterByActivity(
+        action.payload.activity,
+        countriesAllFilters
       );
-      stateFilteredAct = sortedCountries(state.sort, stateFilteredAct);
+      countriesAllFilters = sortedCountries(
+        action.payload.sort,
+        countriesAllFilters
+      );
+
       return {
         ...state,
-        countries: stateFilteredAct,
-        activityFilter: action.payload,
+        countries: countriesAllFilters,
       };
 
     default:

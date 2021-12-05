@@ -1,9 +1,9 @@
-const sortedCountries = (payload, countries) => {
+const sortedCountries = (sort, countries) => {
   let sorted;
-  if (payload === "Orden" || payload === "") {
+  if (sort === "Orden") {
     sorted = countries;
   } else {
-    if (payload === "ascendName") {
+    if (sort === "ascendName") {
       sorted = countries.sort((a, b) => {
         if (a.name > b.name) {
           return 1;
@@ -12,7 +12,7 @@ const sortedCountries = (payload, countries) => {
         }
         return 0;
       });
-    } else if (payload === "descendName") {
+    } else if (sort === "descendName") {
       sorted = countries.sort((a, b) => {
         if (a.name > b.name) {
           return -1;
@@ -21,7 +21,7 @@ const sortedCountries = (payload, countries) => {
         }
         return 0;
       });
-    } else if (payload === "ascendPob") {
+    } else if (sort === "ascendPob") {
       sorted = countries.sort((a, b) => {
         if (a.population > b.population) {
           return 1;
@@ -30,7 +30,7 @@ const sortedCountries = (payload, countries) => {
         }
         return 0;
       });
-    } else if (payload === "descendPob") {
+    } else if (sort === "descendPob") {
       sorted = countries.sort((a, b) => {
         if (a.population > b.population) {
           return -1;
@@ -45,16 +45,12 @@ const sortedCountries = (payload, countries) => {
   return sorted;
 };
 
-const filterByActivity = (payload, countries, allCountries, continent) => {
+const filterByActivity = (activity, countries) => {
   let stateFilteredAct = [];
-  if (payload === "All" || payload === "") {
-    if (continent && countries.length !== 0) {
-      stateFilteredAct = countries;
-    } else {
-      stateFilteredAct = allCountries;
-    }
+  if (activity === "All") {
+    stateFilteredAct = countries;
   } else {
-    let id = parseInt(payload);
+    let id = parseInt(activity);
     for (let element of countries) {
       if (element.activities.length !== 0) {
         for (let elem of element.activities) {
@@ -68,18 +64,15 @@ const filterByActivity = (payload, countries, allCountries, continent) => {
   return stateFilteredAct;
 };
 
-const filterByContinent = (payload, countries, allCountries) => {
+const filterByContinent = (continents, countries) => {
   let stateFiltered = [];
-  if (payload.length !== 0) {
-    for (let element of payload) {
-      stateFiltered = [
-        ...stateFiltered,
-        ...countries.filter((value) => value.continent === element),
-      ];
-    }
-  } else {
-    stateFiltered = allCountries;
+  for (let element of continents) {
+    stateFiltered = [
+      ...stateFiltered,
+      ...countries.filter((value) => value.continent === element),
+    ];
   }
+
   return stateFiltered;
 };
 

@@ -1,13 +1,11 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+
 import { useState } from "react";
-import { filterCountriesByContinent } from "../../redux/actions";
 
 //Importacion de estilos
 import styles from "./ContinentFilter.module.css";
 
-const ContinentFilter = ({ setCurrentPage }) => {
-  const dispatch = useDispatch();
+const ContinentFilter = ({ setCurrentPage, setFilterState, filterState }) => {
   const continentsList = [
     "Africa",
     "Americas",
@@ -35,11 +33,10 @@ const ContinentFilter = ({ setCurrentPage }) => {
     ];
     setFilterContinent(updateCheckedState);
 
-    let statusFilter = continentsList.filter((element, index) => 
-      updateCheckedState[index] === true
+    let statusFilter = continentsList.filter(
+      (element, index) => updateCheckedState[index] === true
     );
-
-    dispatch(filterCountriesByContinent(statusFilter));
+    setFilterState({ ...filterState, continent: statusFilter });
     setCurrentPage(1);
   };
 
