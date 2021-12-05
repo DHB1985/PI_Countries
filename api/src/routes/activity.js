@@ -10,7 +10,7 @@ router.use(express.json());
 router.post("/", async (req, res) => {
   try {
     let { name, difficulty, duration, season, countries } = req.body;
-
+    
     let [activity, created] = await Activity.findOrCreate({
       where: { name: name },
       defaults: {
