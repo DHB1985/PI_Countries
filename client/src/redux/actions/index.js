@@ -2,13 +2,9 @@ import axios from "axios";
 
 import {
   GETALLCOUNTRIES,
-  FILTERBYCONTINENT,
-  ORDERBYCOUNTRYNAME,
- // ORDERBYCOUNTRYPOPULATION,
   GETCOUNTRYBYNAME,
   GETCOUNTRYDETAIL,
   GETACTIVITIES,
-  FILTERBYACTIVITY,
   ALLFILTERS
 } from "./constants";
 
@@ -22,34 +18,16 @@ export const getCountries = () => {
   };
 };
 
-export const filterCountriesByContinent = (payload) => {
-  return {
-    type: FILTERBYCONTINENT,
-    payload: payload,
-  };
-};
-
-export const orderByCountryName = (payload) => {
-  return {
-    type: ORDERBYCOUNTRYNAME,
-    payload: payload,
-  };
-};
-// export const orderByCountryPopulation = (payload) => {
-//   return {
-//     type: ORDERBYCOUNTRYPOPULATION,
-//     payload: payload,
-//   };
-// };
-
 export const getCountryByName = (payload) => {
+  console.log('payload', payload)
   return async (dispatch) => {
     const response = await axios.get(
       `http://localhost:3001/countries?name=${payload}`
     );
+    console.log('responmse ', response)
     return dispatch({
       type: GETCOUNTRYBYNAME,
-      payload: response.data,
+      payload: {response: response.data, condition: payload},
     });
   };
 };
@@ -84,13 +62,6 @@ export const getActivitiesList = () => {
       type: GETACTIVITIES,
       payload: response.data,
     });
-  };
-};
-
-export const filterCountriesByActivity = (payload) => {
-   return {
-    type: FILTERBYACTIVITY,
-    payload: payload,
   };
 };
 

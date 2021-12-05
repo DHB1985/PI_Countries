@@ -23,7 +23,7 @@ router.get("/", async (req, res) => {
         sequelize.where(
           sequelize.fn('unaccent', sequelize.col('country.name')), {
               [Op.iLike]: name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase() + '%'
-        }),
+        }), include: [{ model: Activity, include: [{ model: Season }] }]
         //{
                    // name: 
           // {

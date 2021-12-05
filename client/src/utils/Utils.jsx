@@ -72,7 +72,6 @@ const filterByContinent = (continents, countries) => {
       ...countries.filter((value) => value.continent === element),
     ];
   }
-
   return stateFiltered;
 };
 
