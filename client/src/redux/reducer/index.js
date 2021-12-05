@@ -5,7 +5,6 @@ import {
 } from "../../utils/Utils.jsx";
 import {
   GETALLCOUNTRIES,
-  GETCOUNTRYBYNAME,
   POSTACTIVITY,
   GETCOUNTRYDETAIL,
   GETACTIVITIES,
@@ -17,8 +16,6 @@ const initialState = {
   allCountries: [],
   countryDetail: [],
   activitiesNamesId: [],
-  filterState: { continent: [], sort: "Orden", activity: "All" },
-  filterNameCountry: "",
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -30,16 +27,28 @@ const rootReducer = (state = initialState, action) => {
         allCountries: action.payload,
       };
 
-    case GETCOUNTRYBYNAME:
-      let countries = action.payload.response;
+    case ALLFILTERS:
+      let countries =
+        action.payload.condition.countrySearch === ""
+          ? state.allCountries
+          : action.payload.response;
 
-      if (state.filterState.continent.length !== 0) {
-        countries = filterByContinent(state.filterState.continent, countries);
+      if (action.payload.condition.continent.length !== 0) {
+        countries = filterByContinent(
+          action.payload.condition.continent,
+          countries
+        );
+      }
+      if (action.payload.condition.activity !== "All") {
+        countries = filterByActivity(
+          action.payload.condition.activity,
+          countries
+        );
       }
 
-      countries = filterByActivity(state.filterState.activity, countries);
-
-      countries = sortedCountries(state.filterState.sort, countries);
+      if (action.payload.condition.sort !== "Orden") {
+        countries = sortedCountries(action.payload.condition.sort, countries);
+      }
 
       return {
         ...state,
@@ -68,33 +77,6 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         activitiesNamesId: activitys,
-      };
-
-    case ALLFILTERS:
-      let countriesAllFilters =
-        state.filterNameCountry === "" ? state.allCountries : state.countries;
-
-      if (action.payload.continent.length !== 0) {
-        countriesAllFilters = filterByContinent(
-          action.payload.continent,
-          countriesAllFilters
-        );
-      }
-      console.log("countries ", countriesAllFilters);
-      countriesAllFilters = filterByActivity(
-        action.payload.activity,
-        countriesAllFilters
-      );
-
-      countriesAllFilters = sortedCountries(
-        action.payload.sort,
-        countriesAllFilters
-      );
-
-      return {
-        ...state,
-        countries: countriesAllFilters,
-        filterState: action.payload,
       };
 
     default:

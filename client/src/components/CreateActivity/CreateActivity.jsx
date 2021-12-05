@@ -108,7 +108,7 @@ const CreateActivity = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     let response = await dispatch(postActivity(input));
-    console.log(response);
+
     dispatch(getActivitiesList());
     alert("La actividad " + response.name + " fue creada");
     setInput({
@@ -172,7 +172,6 @@ const CreateActivity = () => {
       value = target.value;
     }
     const name = target.name;
-    console.log(value);
     setInput({ ...input, [name]: value });
     setErrors(validate({ ...input, [name]: value }));
   };

@@ -16,7 +16,6 @@ const CountrySort = ({ setCurrentPage, setFilterState, filterState }) => {
 
   const handleOrder = (event) => {
     setFilterState({ ...filterState, sort: event.target.value });
-
     setCurrentPage(1);
   };
 

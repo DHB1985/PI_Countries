@@ -3,7 +3,7 @@ const express = require("express");
 const router = express.Router();
 
 const sequelize = require("sequelize");
-const {Op} = require("sequelize");
+const { Op } = require("sequelize");
 
 const { Country, Season, Activity } = require("../db.js");
 
@@ -19,32 +19,17 @@ router.get("/", async (req, res) => {
       res.json(data);
     } else if (name) {
       const country = await Country.findAll({
-        where: 
-        sequelize.where(
-          sequelize.fn('unaccent', sequelize.col('country.name')), {
-              [Op.iLike]: name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase() + '%'
-        }), include: [{ model: Activity, include: [{ model: Season }] }]
-        //{
-                   // name: 
-          // {
-          //   [Op.iLike]:
-          //    name
-          //     .toLowerCase()
-          //     .normalize("NFD")
-          //     .replace(/[\u0300-\u036f]/g, "") + "%"
-          // }
-          
-          // sequelize.where(
-          //   sequelize
-          //     .fn("LOWER", sequelize.col("name"))
-          //     ,
-          //   "LIKE",
-          //   name
-          //     .toLowerCase()
-          //     .normalize("NFD")
-          //     .replace(/[\u0300-\u036f]/g, "") + "%"
-          // ),
-        //},
+        where: sequelize.where(
+          sequelize.fn("unaccent", sequelize.col("country.name")),
+          {
+            [Op.iLike]:
+              name
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .toLowerCase() + "%",
+          }
+        ),
+        include: [{ model: Activity }],
       });
 
       if (country.length !== 0) {

@@ -2,10 +2,9 @@ import axios from "axios";
 
 import {
   GETALLCOUNTRIES,
-  GETCOUNTRYBYNAME,
   GETCOUNTRYDETAIL,
   GETACTIVITIES,
-  ALLFILTERS
+  ALLFILTERS,
 } from "./constants";
 
 export const getCountries = () => {
@@ -18,28 +17,13 @@ export const getCountries = () => {
   };
 };
 
-export const getCountryByName = (payload) => {
-  console.log('payload', payload)
-  return async (dispatch) => {
-    const response = await axios.get(
-      `http://localhost:3001/countries?name=${payload}`
-    );
-    console.log('responmse ', response)
-    return dispatch({
-      type: GETCOUNTRYBYNAME,
-      payload: {response: response.data, condition: payload},
-    });
-  };
-};
-
 export const postActivity = (payload) => {
   return async (dispatch) => {
     const response = await axios.post(
       "http://localhost:3001/activity",
       payload
     );
-    console.log('response post',response.data)
-     return response.data;
+    return response.data;
   };
 };
 
@@ -66,8 +50,20 @@ export const getActivitiesList = () => {
 };
 
 export const allFilters = (payload) => {
-   return {
-    type: ALLFILTERS,
-    payload: payload,
-  };
+  if (payload.countrySearch !== "") {
+    return async (dispatch) => {
+      const response = await axios.get(
+        `http://localhost:3001/countries?name=${payload.countrySearch}`
+      );
+      return dispatch({
+        type: ALLFILTERS,
+        payload: { response: response.data, condition: payload },
+      });
+    };
+  } else {
+    return {
+      type: ALLFILTERS,
+      payload: { response: "", condition: payload },
+    };
+  }
 };

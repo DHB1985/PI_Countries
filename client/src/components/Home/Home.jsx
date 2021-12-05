@@ -36,6 +36,7 @@ const Home = () => {
     continent: [],
     sort: "Orden",
     activity: "All",
+    countrySearch: "",
   });
 
   useEffect(() => {
@@ -116,7 +117,11 @@ Sacando la serie a partir de la pagina 2 al difindexOfLastCountry hay que sumarl
         </div>
         {/* SearchBar */}
         <div className={styles.searchCreateAct}>
-          <SearchBar />
+          <SearchBar
+            setCurrentPage={setCurrentPage}
+            setFilterState={setFilterState}
+            filterState={filterState}
+          />
 
           <Link to="/activity">
             <button>Crear actividad Turística</button>
