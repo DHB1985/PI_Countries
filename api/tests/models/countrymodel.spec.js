@@ -1,7 +1,5 @@
 const { Activity, conn } = require("../../src/db.js");
 
-
-
 describe("Model Testing", function () {
   afterAll(async function () {
     await db.sync({ force: true });
@@ -18,7 +16,7 @@ describe("Model Testing", function () {
           // difficulty: "Aficionado",
           // duration: 1.5
         })
-          .then(() => done("No debería haberse creado"))
+          .then(() =>done(new Error ("No debería haberse creado")))
           .catch(() => done());
       });
       it("error sin name y sin duration", function (done) {
@@ -27,7 +25,7 @@ describe("Model Testing", function () {
           difficulty: "Aficionado",
           // duration: 1.5
         })
-          .then(() => done("No debería haberse creado"))
+          .then(() =>done(new Error ("No debería haberse creado")))
           .catch(() => done());
       });
       it("error sin name y sin difficulty", function (done) {
@@ -36,8 +34,17 @@ describe("Model Testing", function () {
           // difficulty: "Aficionado",
           duration: 1.5,
         })
-          .then(() => done("No debería haberse creado"))
+          .then(() =>done(new Error ("No debería haberse creado")))
           .catch(() => done());
+      });
+      it("error sin name y sin difficulty", function (done) {
+        Activity.create({
+          name: "Sky",
+          difficulty: "Aficionado",
+          duration: 1.5,
+        })
+          .then(() => done())
+          .catch(() => done(new Error ("No debería haberse creado")));
       });
     });
   });

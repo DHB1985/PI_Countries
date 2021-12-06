@@ -35,7 +35,7 @@ router.get("/", async (req, res) => {
       if (country.length !== 0) {
         res.json(country);
       } else {
-        res.json("País no encontrado");
+        res.json([]);
       }
     }
   } catch (e) {
@@ -44,12 +44,15 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
+  let { id } = req.params;
   try {
-    let { id } = req.params;
 
-    const pais = await Country.findByPk(id.toUpperCase(), {
+    // const pais = await Country.findByPk(id.toUpperCase(), {
+    //   include: [{ model: Activity, include: [{ model: Season }] }],
+    // });
+    const pais = await Country.findOne({where: {id:id},
       include: [{ model: Activity, include: [{ model: Season }] }],
-    });
+    })
     if (pais !== null) {
       res.json(pais);
     } else {

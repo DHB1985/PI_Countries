@@ -108,7 +108,6 @@ const CreateActivity = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     let response = await dispatch(postActivity(input));
-
     dispatch(getActivitiesList());
     alert("La actividad " + response.name + " fue creada");
     setInput({
