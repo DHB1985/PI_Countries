@@ -22,12 +22,12 @@ import ActivityFilter from "../ActivityFilter/ActivityFilter";
 //Importacion del Paginado
 import Paged from "../Paged/Paged";
 
-import loadingIMG from '../../img/GIF_Mundo_Banderas.gif'
+import loadingIMG from "../../img/GIF_Mundo_Banderas.gif";
 
 const Home = () => {
   const dispatch = useDispatch();
   const allCountries = useSelector((state) => state.countries);
-
+  const [show, setShow] = useState(false);
   useEffect(() => {
     dispatch(getCountries());
     dispatch(getActivitiesList());
@@ -42,6 +42,7 @@ const Home = () => {
   });
 
   useEffect(() => {
+    setLoading((loading)=>!loading);
     dispatch(allFilters(filterState));
   }, [filterState, dispatch]);
 
@@ -90,16 +91,35 @@ Sacando la serie a partir de la pagina 2 al difindexOfLastCountry hay que sumarl
   const indexOfLastCountry = currentPage * countriesPerPage; //Para setear el el índice del último país en la pagina actual
   const indexOfFirstCountry = indexOfLastCountry - countriesPerPage; // Para setear el índice del primer paíes ne la página
 
-  const currentCountries = !Array.isArray(allCountries)
-    ? allCountries
+  const currentCountries = !allCountries.length >0
+    ? []
     : allCountries.slice(
         indexOfFirstCountry + indFirstCountry,
         indexOfLastCountry + indLastCountry
       ); //deja solo la cantidad de países que necesito en cada página
+console.log('array current countries',currentCountries )
+
+
   const paged = (pageNumber) => {
     setCurrentPage(pageNumber);
   }; //Setea el número de la página a mostrar
   //Final de las funciones de paginado
+
+
+  //funcion loading
+
+  const [loading, setLoading] = useState(false);
+  console.log('show ', show)
+  useEffect(() => {
+    setShow((show)=>!show);
+    if (loading) {
+      setTimeout(() => {
+        setLoading(false);
+      }, 2000);
+    }
+  }, [loading]);
+
+
 
   return (
     <div className={styles.homeBox}>
@@ -153,12 +173,16 @@ Sacando la serie a partir de la pagina 2 al difindexOfLastCountry hay que sumarl
         <div className={styles.dataCards}>
           {/* Área para el mapeo de las cartas */}
 
-          {currentCountries.length > 0 ? 
-          <CountriesCards currentCountries={currentCountries} />
-          :<div >
-          <img src={loadingIMG} alt="" width = "40%" height = "40%"/>
-          </div>
-          }
+          {currentCountries.length === 0 && !show?
+            <div className={styles.sinCoincidencias}>
+              <img src={loadingIMG} alt="" />
+            </div>:
+          currentCountries.length > 0 ?       <CountriesCards currentCountries={currentCountries} />
+          :   <div className={styles.sinCoincidencias}>
+               <img src={loadingIMG} alt=""  />
+              <h4>"No hay coincidencias"</h4>
+            </div>
+         }
           {/* Mapeo del Paginado */}
 
           <Paged

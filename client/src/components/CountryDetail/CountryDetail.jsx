@@ -14,7 +14,7 @@ const CountryDetail = () => {
   let country = ''
 
   
-  useEffect(async () => {
+  useEffect(() => {
     dispatch(getCountryDetail(id));
   }, [dispatch, id]);
   

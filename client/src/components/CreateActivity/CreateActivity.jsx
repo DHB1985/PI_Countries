@@ -213,7 +213,7 @@ const CreateActivity = () => {
                   step="0.5"
                   value={input.duration}
                   onChange={(e) => handleChangeIntegrated(e)}
-                  placeholder="Ingrese el nombre..."
+                  placeholder="Ingrese la duración..."
                 />
               </div>
             </div>

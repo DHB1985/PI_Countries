@@ -17,7 +17,25 @@
   .imgLoading{
     display: flex;
     align-items: center;
-    
+  }
+
+  .sinCoincidencias{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 90%;
+  }
+
+  .sinCoincidencias h4{
+    color: blanchedalmond;
+  }
+
+  .sinCoincidencias img{
+     width: 40%;
+    height: 40%;
+    object-fit: contain;
   }
   .homeTitleBox {
     flex-shrink: 0;
