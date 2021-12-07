@@ -1,7 +1,11 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCountries, getActivitiesList } from "../../redux/actions";
+import {
+  getCountries,
+  getActivitiesList,
+  allFilters,
+} from "../../redux/actions";
 import { Link } from "react-router-dom";
 
 //Importacion de estilos
@@ -18,26 +22,34 @@ import ActivityFilter from "../ActivityFilter/ActivityFilter";
 //Importacion del Paginado
 import Paged from "../Paged/Paged";
 
+import loadingIMG from "../../img/GIF_Mundo_Banderas.gif";
+
 const Home = () => {
   const dispatch = useDispatch();
   const allCountries = useSelector((state) => state.countries);
- // const navigate = useNavigate();
-
+  const [show, setShow] = useState(false);
   useEffect(() => {
     dispatch(getCountries());
     dispatch(getActivitiesList());
   }, [dispatch]);
 
+  //Estado local para los filtros
+  const [filterState, setFilterState] = useState({
+    continent: [],
+    sort: "Orden",
+    activity: "All",
+    countrySearch: "",
+  });
+
+  useEffect(() => {
+    setLoading((loading)=>!loading);
+    dispatch(allFilters(filterState));
+  }, [filterState, dispatch]);
+
   const handleClick = (event) => {
     dispatch(getCountries());
     window.location.reload();
   }; //Funcion para resetear el State, para que vuelva a traer todos los países
-
-  //Estado para el ordenamiento
-  //Esta puesto para que cambie el estado local y renderize
-  //la pagina cada vez que ordeno por población o por nombre
-  //Si no lo pongo cuando esta enn la pagina 1 no lo renderiza de nuevo
-  const [orden, setOrden] = useState("");
 
   // Estados locales para setear el paginado
   const [currentPage, setCurrentPage] = useState(1); //Setea la página actual en 1
@@ -79,16 +91,35 @@ Sacando la serie a partir de la pagina 2 al difindexOfLastCountry hay que sumarl
   const indexOfLastCountry = currentPage * countriesPerPage; //Para setear el el índice del último país en la pagina actual
   const indexOfFirstCountry = indexOfLastCountry - countriesPerPage; // Para setear el índice del primer paíes ne la página
 
-  const currentCountries = !Array.isArray(allCountries)
-    ? allCountries
+  const currentCountries = !allCountries.length >0
+    ? []
     : allCountries.slice(
         indexOfFirstCountry + indFirstCountry,
         indexOfLastCountry + indLastCountry
       ); //deja solo la cantidad de países que necesito en cada página
+console.log('array current countries',currentCountries )
+
+
   const paged = (pageNumber) => {
     setCurrentPage(pageNumber);
   }; //Setea el número de la página a mostrar
   //Final de las funciones de paginado
+
+
+  //funcion loading
+
+  const [loading, setLoading] = useState(false);
+  console.log('show ', show)
+  useEffect(() => {
+    setShow((show)=>!show);
+    if (loading) {
+      setTimeout(() => {
+        setLoading(false);
+      }, 2000);
+    }
+  }, [loading]);
+
+
 
   return (
     <div className={styles.homeBox}>
@@ -108,7 +139,11 @@ Sacando la serie a partir de la pagina 2 al difindexOfLastCountry hay que sumarl
         </div>
         {/* SearchBar */}
         <div className={styles.searchCreateAct}>
-          <SearchBar />
+          <SearchBar
+            setCurrentPage={setCurrentPage}
+            setFilterState={setFilterState}
+            filterState={filterState}
+          />
 
           <Link to="/activity">
             <button>Crear actividad Turística</button>
@@ -120,18 +155,34 @@ Sacando la serie a partir de la pagina 2 al difindexOfLastCountry hay que sumarl
         <div className={styles.leftMenu}>
           {/* Filtrado por Continente */}
 
-          <ContinentFilter setCurrentPage={setCurrentPage} />
+          <ContinentFilter
+            setCurrentPage={setCurrentPage}
+            setFilterState={setFilterState}
+            filterState={filterState}
+          />
 
           {/* Orden alfabetico o por poblacion ascendente o descendente */}
 
-          <CountrySort setCurrentPage={setCurrentPage} setOrden={setOrden} orden={orden} />
+          <CountrySort
+            setCurrentPage={setCurrentPage}
+            setFilterState={setFilterState}
+            filterState={filterState}
+          />
         </div>
 
         <div className={styles.dataCards}>
           {/* Área para el mapeo de las cartas */}
 
-          <CountriesCards currentCountries={currentCountries} />
-
+          {currentCountries.length === 0 && !show?
+            <div className={styles.sinCoincidencias}>
+              <img src={loadingIMG} alt="" />
+            </div>:
+          currentCountries.length > 0 ?       <CountriesCards currentCountries={currentCountries} />
+          :   <div className={styles.sinCoincidencias}>
+               <img src={loadingIMG} alt=""  />
+              <h4>"No hay coincidencias"</h4>
+            </div>
+         }
           {/* Mapeo del Paginado */}
 
           <Paged
@@ -139,14 +190,18 @@ Sacando la serie a partir de la pagina 2 al difindexOfLastCountry hay que sumarl
             allCountries={allCountries}
             paged={paged}
             key={"page" + currentPage}
-            currentPage = {currentPage}
+            currentPage={currentPage}
           />
         </div>
 
         <div className={styles.filterActivity}>
           {/* Filtrado por Actividad */}
 
-          <ActivityFilter setCurrentPage={setCurrentPage} />
+          <ActivityFilter
+            setCurrentPage={setCurrentPage}
+            setFilterState={setFilterState}
+            filterState={filterState}
+          />
         </div>
       </div>
     </div>

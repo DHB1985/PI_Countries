@@ -105,11 +105,11 @@ const CreateActivity = () => {
     }
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    dispatch(postActivity(input));
+    let response = await dispatch(postActivity(input));
     dispatch(getActivitiesList());
-    alert("Actividad Creada");
+    alert("La actividad " + response.name + " fue creada");
     setInput({
       name: "",
       difficulty: "",
@@ -171,7 +171,6 @@ const CreateActivity = () => {
       value = target.value;
     }
     const name = target.name;
-    console.log(value);
     setInput({ ...input, [name]: value });
     setErrors(validate({ ...input, [name]: value }));
   };
@@ -213,7 +212,7 @@ const CreateActivity = () => {
                   step="0.5"
                   value={input.duration}
                   onChange={(e) => handleChangeIntegrated(e)}
-                  placeholder="Ingrese el nombre..."
+                  placeholder="Ingrese la duración..."
                 />
               </div>
             </div>

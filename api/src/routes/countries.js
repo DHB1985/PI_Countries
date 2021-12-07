@@ -3,7 +3,7 @@ const express = require("express");
 const router = express.Router();
 
 const sequelize = require("sequelize");
-const {Op} = require("sequelize");
+const { Op } = require("sequelize");
 
 const { Country, Season, Activity } = require("../db.js");
 
@@ -19,38 +19,23 @@ router.get("/", async (req, res) => {
       res.json(data);
     } else if (name) {
       const country = await Country.findAll({
-        where: 
-        sequelize.where(
-          sequelize.fn('unaccent', sequelize.col('country.name')), {
-              [Op.iLike]: name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase() + '%'
-        }),
-        //{
-                   // name: 
-          // {
-          //   [Op.iLike]:
-          //    name
-          //     .toLowerCase()
-          //     .normalize("NFD")
-          //     .replace(/[\u0300-\u036f]/g, "") + "%"
-          // }
-          
-          // sequelize.where(
-          //   sequelize
-          //     .fn("LOWER", sequelize.col("name"))
-          //     ,
-          //   "LIKE",
-          //   name
-          //     .toLowerCase()
-          //     .normalize("NFD")
-          //     .replace(/[\u0300-\u036f]/g, "") + "%"
-          // ),
-        //},
+        where: sequelize.where(
+          sequelize.fn("unaccent", sequelize.col("country.name")),
+          {
+            [Op.iLike]:
+              name
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .toLowerCase() + "%",
+          }
+        ),
+        include: [{ model: Activity }],
       });
 
       if (country.length !== 0) {
         res.json(country);
       } else {
-        res.json("País no encontrado");
+        res.json([]);
       }
     }
   } catch (e) {
@@ -59,12 +44,15 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
+  let { id } = req.params;
   try {
-    let { id } = req.params;
 
-    const pais = await Country.findByPk(id.toUpperCase(), {
+    // const pais = await Country.findByPk(id.toUpperCase(), {
+    //   include: [{ model: Activity, include: [{ model: Season }] }],
+    // });
+    const pais = await Country.findOne({where: {id:id},
       include: [{ model: Activity, include: [{ model: Season }] }],
-    });
+    })
     if (pais !== null) {
       res.json(pais);
     } else {

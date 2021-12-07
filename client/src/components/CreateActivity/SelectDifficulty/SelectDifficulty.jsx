@@ -16,8 +16,9 @@ const SelectDifficulty = ({ handleChangeIntegrated }) => {
       <label>Dificultad: </label>
       {difficultyRange.map((element) => {
         return (
-          <label>
+          <label key = {'selectDiffLabel'+element}>
             <input
+            key = {'selectDiff'+element}
               type="radio"
               id={element}
               name="difficulty"

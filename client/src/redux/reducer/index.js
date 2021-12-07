@@ -1,13 +1,14 @@
 import {
+  sortedCountries,
+  filterByActivity,
+  filterByContinent,
+} from "../../utils/Utils.jsx";
+import {
   GETALLCOUNTRIES,
-  FILTERBYCONTINENT,
-  ORDERBYCOUNTRYNAME,
-  // ORDERBYCOUNTRYPOPULATION,
-  GETCOUNTRYBYNAME,
   POSTACTIVITY,
   GETCOUNTRYDETAIL,
   GETACTIVITIES,
-  FILTERBYACTIVITY,
+  ALLFILTERS,
 } from "../actions/constants";
 
 const initialState = {
@@ -15,7 +16,6 @@ const initialState = {
   allCountries: [],
   countryDetail: [],
   activitiesNamesId: [],
-  continentsFilter: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -27,73 +27,33 @@ const rootReducer = (state = initialState, action) => {
         allCountries: action.payload,
       };
 
-    case FILTERBYCONTINENT:
-      let stateFiltered = [];
-      if (action.payload.length !== 0) {
-        for (let element of action.payload) {
-          stateFiltered = [
-            ...stateFiltered,
-            ...state.allCountries.filter(
-              (value) => value.continent === element
-            ),
-          ];
-        }
-      } else {
-        stateFiltered = state.allCountries;
-      }
-      return {
-        ...state,
-        countries: stateFiltered,
-      };
+    case ALLFILTERS:
+      let countries =
+        action.payload.condition.countrySearch === ""
+          ? state.allCountries
+          : action.payload.response;
 
-    case ORDERBYCOUNTRYNAME:
-      let sortedCountries;
-      if (action.payload === "ascendName") {
-        sortedCountries = state.countries.sort((a, b) => {
-          if (a.name > b.name) {
-            return 1;
-          } else if (b.name > a.name) {
-            return -1;
-          }
-          return 0;
-        });
-      } else if (action.payload === "descendName") {
-        sortedCountries = state.countries.sort((a, b) => {
-          if (a.name > b.name) {
-            return -1;
-          } else if (b.name > a.name) {
-            return 1;
-          }
-          return 0;
-        });
-      } else if (action.payload === "ascendPob") {
-        sortedCountries = state.countries.sort((a, b) => {
-          if (a.population > b.population) {
-            return 1;
-          } else if (b.population > a.population) {
-            return -1;
-          }
-          return 0;
-        });
-      } else if (action.payload === "descendPob") {
-        sortedCountries = state.countries.sort((a, b) => {
-          if (a.population > b.population) {
-            return -1;
-          } else if (b.population > a.population) {
-            return 1;
-          }
-          return 0;
-        });
+      if (action.payload.condition.continent.length !== 0) {
+        countries = filterByContinent(
+          action.payload.condition.continent,
+          countries
+        );
       }
-      return {
-        ...state,
-        countries: sortedCountries,
-      };
+      if (action.payload.condition.activity !== "All") {
+        countries = filterByActivity(
+          action.payload.condition.activity,
+          countries
+        );
+      }
 
-    case GETCOUNTRYBYNAME:
+      if (action.payload.condition.sort !== "Orden") {
+        countries = sortedCountries(action.payload.condition.sort, countries);
+      }
+
       return {
         ...state,
-        countries: action.payload,
+        countries: countries,
+        //filterNameCountry: action.payload.condition,
       };
 
     case POSTACTIVITY:
@@ -117,28 +77,6 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         activitiesNamesId: activitys,
-      };
-
-    case FILTERBYACTIVITY:
-      let stateFilteredAct = [];
-      if (action.payload === "All") {
-        stateFilteredAct = state.allCountries;
-      } else {
-        let id = parseInt(action.payload);
-        for (let element of state.allCountries) {
-          if (element.activities.length !== 0) {
-            for (let elem of element.activities) {
-              if (elem.id === id) {
-                stateFilteredAct = [...stateFilteredAct, element];
-              }
-            }
-          }
-        }
-      }
-
-      return {
-        ...state,
-        countries: stateFilteredAct,
       };
 
     default:

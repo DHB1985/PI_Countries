@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon -L",
-    "test": "jest --detectOpenHandles",
+    "test": "jest --watch --detectOpenHandles",
+    "test2": "mocha -w",
     "grade": "jest --useStderr --detectOpenHandles --json --outputFile=./test/result.json"
   },
   "author": "Henry",

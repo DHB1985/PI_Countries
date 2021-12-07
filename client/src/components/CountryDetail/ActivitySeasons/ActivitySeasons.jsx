@@ -7,10 +7,10 @@ const ActivitySeasons = ({ seasons }) => {
     <div className={styles.seasonsList}>
       <span>Temporadas:</span>
       {seasons &&
-        seasons.map((season) => {
+        seasons.map((season, index) => {
           return (
      
-              <span>{season.name}</span>
+              <span key= {season.name + index}>{season.name}</span>
          
           );
         })}

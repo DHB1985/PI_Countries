@@ -2,13 +2,9 @@ import axios from "axios";
 
 import {
   GETALLCOUNTRIES,
-  FILTERBYCONTINENT,
-  ORDERBYCOUNTRYNAME,
- // ORDERBYCOUNTRYPOPULATION,
-  GETCOUNTRYBYNAME,
   GETCOUNTRYDETAIL,
   GETACTIVITIES,
-  FILTERBYACTIVITY,
+  ALLFILTERS,
 } from "./constants";
 
 export const getCountries = () => {
@@ -21,45 +17,13 @@ export const getCountries = () => {
   };
 };
 
-export const filterCountriesByContinent = (payload) => {
-  return {
-    type: FILTERBYCONTINENT,
-    payload: payload,
-  };
-};
-
-export const orderByCountryName = (payload) => {
-  return {
-    type: ORDERBYCOUNTRYNAME,
-    payload: payload,
-  };
-};
-// export const orderByCountryPopulation = (payload) => {
-//   return {
-//     type: ORDERBYCOUNTRYPOPULATION,
-//     payload: payload,
-//   };
-// };
-
-export const getCountryByName = (payload) => {
-  return async (dispatch) => {
-    const response = await axios.get(
-      `http://localhost:3001/countries?name=${payload}`
-    );
-    return dispatch({
-      type: GETCOUNTRYBYNAME,
-      payload: response.data,
-    });
-  };
-};
-
 export const postActivity = (payload) => {
   return async (dispatch) => {
     const response = await axios.post(
       "http://localhost:3001/activity",
       payload
     );
-     return response.data;
+    return response.data;
   };
 };
 
@@ -69,9 +33,9 @@ export const getCountryDetail = (payload) => {
       `http://localhost:3001/countries/${payload}`
     );
     return dispatch({
-      type: GETCOUNTRYDETAIL,
+       type: GETCOUNTRYDETAIL,
       payload: response.data,
-    });
+     });
   };
 };
 
@@ -85,9 +49,21 @@ export const getActivitiesList = () => {
   };
 };
 
-export const filterCountriesByActivity = (payload) => {
-   return {
-    type: FILTERBYACTIVITY,
-    payload: payload,
-  };
+export const allFilters = (payload) => {
+  if (payload.countrySearch !== "") {
+    return async (dispatch) => {
+      const response = await axios.get(
+        `http://localhost:3001/countries?name=${payload.countrySearch}`
+      );
+      return dispatch({
+        type: ALLFILTERS,
+        payload: { response: response.data, condition: payload },
+      });
+    };
+  } else {
+    return {
+      type: ALLFILTERS,
+      payload: { response: "", condition: payload },
+    };
+  }
 };
