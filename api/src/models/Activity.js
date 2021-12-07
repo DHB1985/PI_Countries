@@ -14,7 +14,8 @@ module.exports = (sequelize) => {
      values: ["Principiante", "Aficionado", "Normal", "Profesional", "Experto"],
     },
     duration: {
-      type: DataTypes.REAL(2, 2),
+      //type: DataTypes.REAL(2, 2),
+      type: DataTypes.REAL,
       allowNull: false,
     },
     // season: {

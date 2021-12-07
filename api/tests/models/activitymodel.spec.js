@@ -1,4 +1,4 @@
-const { Activity, conn } = require("../../src/db.js");
+const { Activity } = require("../../src/db.js");
 
 describe("Model Testing", function () {
   afterAll(async function () {
@@ -44,7 +44,7 @@ describe("Model Testing", function () {
           duration: 1.5,
         })
           .then(() => done())
-          .catch(() => done(new Error ("No debería haberse creado")));
+          .catch(() => done(new Error ("Error. Debería haberse creado")));
       });
     });
   });

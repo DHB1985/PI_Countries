@@ -53,7 +53,6 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         countries: countries,
-        //filterNameCountry: action.payload.condition,
       };
 
     case POSTACTIVITY:

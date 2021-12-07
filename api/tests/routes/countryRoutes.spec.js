@@ -46,31 +46,31 @@ describe("Country routes", () => {
   });
 });
 
-// describe("Activity routes", () => {
-//   let response;
-//   before(() =>
-//     conn.authenticate().catch((err) => {
-//       console.error("Unable to connect to the database:", err);
-//     })
-//   );
-//   beforeEach(() =>
-//     Activity.sync({ force: true })
-//       .then(() =>
-//         Activity.create({
-//           name: "Sky",
-//           difficulty: "Normal",
-//           duration: 1.5,
-//         })
-//       )
-//       .then(async (resp) => {
-//         response = resp;
-//       })
-//   );
+describe("Activity routes", () => {
+  let response;
+  before(() =>
+    conn.authenticate().catch((err) => {
+      console.error("Unable to connect to the database:", err);
+    })
+  );
+  beforeEach(() =>
+    Activity.sync({ force: true })
+      .then(() =>
+        Activity.create({
+          name: "Sky",
+          difficulty: "Normal",
+          duration: 1.5,
+        })
+      )
+      .then(async (resp) => {
+        response = resp;
+      })
+  );
 
-//   describe("POST /activity", () => {
-//     it("Name must be Sky", () => expect(response.name).equals("Sky"));
-//     it("Difficulty must be 'Normal'", () =>
-//       expect(response.difficulty).equals("Normal"));
-//     it("Duration must be 1.5", () => expect(response.duration).equals(1.5));
-//   });
-// });
+  describe("POST /activity", () => {
+    it("Name must be Sky", () => expect(response.name).equals("Sky"));
+    it("Difficulty must be 'Normal'", () =>
+      expect(response.difficulty).equals("Normal"));
+    it("Duration must be 1.5", () => expect(response.duration).equals(1.5));
+  });
+});
