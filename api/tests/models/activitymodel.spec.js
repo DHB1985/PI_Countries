@@ -37,7 +37,7 @@ describe("Model Testing", function () {
           .then(() =>done(new Error ("No debería haberse creado")))
           .catch(() => done());
       });
-      it("Creacion aprobada", function (done) {
+      it("error sin name y sin difficulty", function (done) {
         Activity.create({
           name: "Sky",
           difficulty: "Aficionado",
