@@ -15,7 +15,6 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/home" element={<Home />} />
           <Route path="/home/:id" element={<CountryDetail />} />
-
           <Route path="/activity" element={<CreateActivity />} />
           <Route path="*" element={<NoMatch />} />
         </Routes>
