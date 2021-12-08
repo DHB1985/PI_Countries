@@ -1,5 +1,6 @@
 const { Activity } = require("../../src/db.js");
 
+
 describe("Model Testing", function () {
   afterAll(async function () {
     await db.sync({ force: true });

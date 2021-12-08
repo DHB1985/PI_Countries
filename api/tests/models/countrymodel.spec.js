@@ -61,42 +61,42 @@ const country5 = {
   population: 456,
 };
 
-describe("Country Testing", function () {
-  afterAll(async function () {
+describe("Country Testing", () => {
+  afterAll(async  ()=> {
     await db.sync({ force: true });
     db.close();
   });
-  describe(" model", function () {
+  describe(" model",  ()=> {
     beforeEach(async function () {
       await Country.sync({ force: true });
     });
-    describe("Country", function () {
-      it("Deberia cargarse en la DB", function (done) {
+    describe("Country",  ()=> {
+      it("Deberia cargarse en la DB",  (done)=> {
         Country.create(country)
           .then(() => done())
           .catch(() => done(new Error("No cargo en la DB")));
       });
-      it("Error no deberia haberse cargado por no tener ID", function (done) {
+      it("Error no deberia haberse cargado por no tener ID",  (done)=> {
         Country.create(country1)
           .then(() => done(new Error("No debería haberse creado")))
           .catch(() => done());
       });
-      it("Error no deberia haberse cargado por no tener nombre en los Datos", function (done) {
+      it("Error no deberia haberse cargado por no tener nombre en los Datos",  (done)=> {
         Country.create(country2)
           .then(() => done(new Error("No debería haberse creado")))
           .catch(() => done());
       });
-      it("Error no deberia haberse cargado por no tener nombre en la URL de la imagen", function (done) {
+      it("Error no deberia haberse cargado por no tener nombre en la URL de la imagen",  (done)=> {
         Country.create(country3)
           .then(() => done(new Error("No debería haberse creado")))
           .catch(() => done());
       });
-      it("Error no deberia haberse cargado por no tener conmtinente", function (done) {
+      it("Error no deberia haberse cargado por no tener conmtinente",  (done)=> {
         Country.create(country4)
           .then(() => done(new Error("No debería haberse creado")))
           .catch(() => done());
       });
-      it("Error no deberia haberse cargado por no tener capital", function (done) {
+      it("Error no deberia haberse cargado por no tener capital",  (done)=> {
         Country.create(country5)
           .then(() => done(new Error("No debería haberse creado")))
           .catch(() => done());

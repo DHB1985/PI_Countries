@@ -36,10 +36,10 @@ const { Country, Activity, Season } = sequelize.models;
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
-Country.belongsToMany(Activity, {through: 'countryactivity'})
-Activity.belongsToMany(Country, {through: 'countryactivity'})
-Activity.belongsToMany(Season, {through: 'activityseason'})
-Season.belongsToMany(Activity, {through: 'activityseason'})
+Country.belongsToMany(Activity, {through: 'countryactivity', timestamps: false})
+Activity.belongsToMany(Country, {through: 'countryactivity', timestamps: false})
+Activity.belongsToMany(Season, {through: 'activityseason', timestamps: false})
+Season.belongsToMany(Activity, {through: 'activityseason', timestamps: false})
 
 
 module.exports = {
