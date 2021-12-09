@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+//import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { postActivity, getActivitiesList } from "../../redux/actions";
@@ -47,7 +47,7 @@ const CreateActivity = () => {
 
   const history = useNavigate();
 
-  let [input, setInput] = useState({
+  let [input, setInput] = React.useState({
     name: "",
     difficulty: "",
     duration: "",
@@ -57,9 +57,9 @@ const CreateActivity = () => {
     countriesFlags: [],
   });
 
-  let [habilButton, setHabilButton] = useState(true);
+  let [habilButton, setHabilButton] = React.useState(true);
 
-  const [errors, setErrors] = useState([
+  const [errors, setErrors] = React.useState([
     "Se requiere un NOMBRE",
     "Se requiere una DIFICULTAD",
     "Se requiere una DURACION",
@@ -71,14 +71,14 @@ const CreateActivity = () => {
   // //e ingreso una letra en el nombre me lo habilita y si sigo escribiendo o pongo otra opción me lo
   // //deshabilita
 
-  useEffect(() => {
+  React.useEffect(() => {
     setErrors(validate(input));
   }, [input]);
 
   //Uso este useEffect para que cada vez que cambie el estado error me habilite o deshabilite el boton
   //de crear actividad
 
-  useEffect(() => {
+  React.useEffect(() => {
     setHabilButton(buttonValidate(errors));
   }, [errors]);
 
